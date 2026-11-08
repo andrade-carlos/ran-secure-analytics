@@ -6,8 +6,9 @@ Record facts only — what was actually done, on which date.
 
 | Date (UTC) | Category | Description | Verifiable proof |
 |---|---|---|---|
-| 2026-11-05 | Development | Initial repository: simulated 4G/5G RAN, RAN KPI MIB, OpenNMS/Grafana stack, fault & security scenarios | First commit hash: `________` |
-| | | | |
+| 2026-11-08 | Development | Repository published: simulated 4G/5G RAN, RAN KPI MIB, OpenNMS/Grafana stack, fault & security scenarios | Commit `815ed1d` – https://github.com/andrade-carlos/ran-secure-analytics |
+| 2026-11-08 | Infrastructure | Cloud demo server deployed: AWS Lightsail us-east-1 (Virginia), Ubuntu 24.04, 8 GB RAM; public HTTPS (Let's Encrypt) | https://nms.35-153-8-93.sslip.io – AWS billing record (private) |
+| 2026-11-08 | Development | Fixes from first cloud deployment: simulator dependencies, HTTPS behind reverse proxy, Horizon 36 data-collection handling | Commits `d566bb2`, `633c584`, `92aef7d` |
 
 ## Categories
 
