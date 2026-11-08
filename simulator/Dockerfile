@@ -5,7 +5,7 @@ FROM python:3.12-slim
 RUN apt-get update \
  && apt-get install -y --no-install-recommends snmp iputils-ping \
  && rm -rf /var/lib/apt/lists/* \
- && pip install --no-cache-dir snmpsim==1.2.2 \
+ && pip install --no-cache-dir snmpsim==1.2.2 pysnmp==7.1.32 pysmi==2.0.0 \
  && useradd --system --uid 10010 --home /app sim
 
 WORKDIR /app
