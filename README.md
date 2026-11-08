@@ -27,7 +27,7 @@ on-premises, or that many operators can share as an isolated, multi-tenant cloud
 | Simulated 4G/5G RAN | 2 gNodeB (5G NR), 2 eNodeB (4G LTE), 1 cell-site router, 1 aggregation router — each a separate container with its own IP and SNMP agent (`simulator/`) |
 | RAN KPI model | `RAN-SECURE-SIM-MIB`: node CPU/temperature/UEs and per-cell PRB DL/UL, RRC setup success rate, active UEs, DL throughput, drop rate, availability (`mibs/`) |
 | Inventory & discovery | OpenNMS requisition `RAN-Sim` with categories RAN / 5G-NR / 4G-LTE / Transport (`opennms/requisition/`) |
-| Performance management | SNMP data collection for IF-MIB traffic and RAN KPIs, plus KPI graphs with engineering thresholds (`opennms/overlay/etc/`) |
+| Performance management | SNMP data collection for IF-MIB traffic and RAN KPIs, plus KPI graphs with engineering thresholds (`opennms/overlay/etc/`, `opennms/etc-first-start/`) |
 | Fault management | Alarms for cell outage/restore (auto-clear) and node down (site power loss); standard IF-MIB link down/up traps for backhaul |
 | Security monitoring | Critical alarm for repeated failed OAM logins (brute-force pattern) on a RAN element |
 | Dashboards | Grafana with the OpenNMS Plugin for Grafana and pre-provisioned datasources (`grafana/`) |
@@ -108,7 +108,8 @@ Each run is appended to `docs/demo-runs.log` with a UTC timestamp.
 docker-compose.yml          full stack (database, horizon, grafana, 6 simulated elements)
 simulator/                  RAN element simulator (snmpsim) + data generator + trap sender
 mibs/                       RAN-SECURE-SIM-MIB (SMIv2)
-opennms/overlay/etc/        OpenNMS config overlay: SNMP, data collection, KPI graphs
+opennms/overlay/etc/        OpenNMS config overlay applied on every start: SNMP, KPI graphs
+opennms/etc-first-start/    data collection config, applied on the first start only (Horizon 36 then keeps it in the database)
 opennms/events/             event/alarm definitions for RAN-SECURE-SIM-MIB notifications
 opennms/requisition/        inventory of the simulated network (generated)
 grafana/provisioning/       Grafana plugin + datasources

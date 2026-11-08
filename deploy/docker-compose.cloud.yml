@@ -29,7 +29,7 @@ services:
 
   horizon:
     volumes:
-      - ./deploy/opennms-etc-overlay:/opt/opennms-etc-overlay:ro
+      - ./deploy/opennms-etc-cloud:/opt/ran-secure/etc-cloud:ro
 
   grafana:
     environment:

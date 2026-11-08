@@ -52,11 +52,16 @@ services:
       OPENNMS_DBUSER: opennms
       OPENNMS_DBPASS: ${OPENNMS_DB_PASSWORD:?set OPENNMS_DB_PASSWORD in .env}
       JAVA_OPTS: ${HORIZON_JAVA_OPTS:--Xms1g -Xmx2g}
+    # Wrapper: applies the data collection config only on the first start (Horizon 36
+    # moves it into the database afterwards), then runs the stock /entrypoint.sh.
+    entrypoint: ["/bin/bash", "/opt/ran-secure/entrypoint.sh"]
     command: ["-s"]
     volumes:
       - data-opennms:/opennms-data
       - data-opennms-etc:/opt/opennms/etc
       - ./opennms/overlay:/opt/opennms-overlay:ro
+      - ./opennms/etc-first-start:/opt/ran-secure/etc-first-start:ro
+      - ./opennms/ran-secure-entrypoint.sh:/opt/ran-secure/entrypoint.sh:ro
     ports:
       - "${BIND_ADDR:-127.0.0.1}:8980:8980/tcp"   # Web UI + REST API
       - "${BIND_ADDR:-127.0.0.1}:10162:1162/udp"  # SNMP traps from external devices
