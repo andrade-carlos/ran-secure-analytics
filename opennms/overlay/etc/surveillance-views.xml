@@ -1,0 +1,32 @@
+<!--
+  RAN-Secure Analytics Platform: surveillance view used by the OpenNMS Dashboard
+  (Dashboards > Dashboard). Replaces the stock Routers/Switches/Servers x PROD/TEST/DEV
+  grid with the simulated RAN, using the node categories from the RAN-Sim requisition.
+  The Dashboard only lists alarms, outages and notifications for nodes in this view.
+-->
+<surveillance-view-configuration xmlns="http://xmlns.opennms.org/xsd/config/surveillance-views" default-view="default">
+   <views>
+      <view name="default" refresh-seconds="60">
+         <rows>
+            <row-def label="5G NR (gNodeB)">
+               <category name="5G-NR"/>
+            </row-def>
+            <row-def label="4G LTE (eNodeB)">
+               <category name="4G-LTE"/>
+            </row-def>
+            <row-def label="Backhaul (cell-site routers)">
+               <category name="Backhaul"/>
+            </row-def>
+            <row-def label="Core aggregation">
+               <category name="Core"/>
+            </row-def>
+         </rows>
+         <columns>
+            <column-def label="RAN-Sim network">
+               <category name="RAN"/>
+               <category name="Transport"/>
+            </column-def>
+         </columns>
+      </view>
+   </views>
+</surveillance-view-configuration>
