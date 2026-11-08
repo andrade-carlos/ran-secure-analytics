@@ -27,6 +27,10 @@ services:
       ran-net:
         ipv4_address: 172.30.0.7
 
+  horizon:
+    volumes:
+      - ./deploy/opennms-etc-overlay:/opt/opennms-etc-overlay:ro
+
   grafana:
     environment:
       GF_SERVER_ROOT_URL: https://${GRAFANA_HOST}/
