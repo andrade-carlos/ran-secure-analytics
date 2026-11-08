@@ -1,0 +1,28 @@
+# RAN-Secure Analytics Platform - public HTTPS entry point (cloud deployment).
+# Caddy obtains and renews Let's Encrypt certificates automatically.
+{
+	email {$ACME_EMAIL}
+}
+
+(security_headers) {
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+}
+
+{$ONMS_HOST} {
+	import security_headers
+	encode gzip
+	redir / /opennms/
+	reverse_proxy horizon:8980
+}
+
+{$GRAFANA_HOST} {
+	import security_headers
+	encode gzip
+	reverse_proxy grafana:3000
+}

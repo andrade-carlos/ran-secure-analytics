@@ -1,0 +1,50 @@
+<model-import xmlns="http://xmlns.opennms.org/xsd/config/model-import" foreign-source="RAN-Sim">
+   <node foreign-id="gnb-site-101" node-label="gnb-site-101" building="Site 101 - Urban macro (simulated)">
+      <interface ip-addr="172.30.0.11" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="RAN"/>
+      <category name="5G-NR"/>
+   </node>
+   <node foreign-id="gnb-site-102" node-label="gnb-site-102" building="Site 102 - Suburban macro (simulated)">
+      <interface ip-addr="172.30.0.12" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="RAN"/>
+      <category name="5G-NR"/>
+   </node>
+   <node foreign-id="enb-rural-201" node-label="enb-rural-201" building="Site 201 - Rural coverage (simulated)">
+      <interface ip-addr="172.30.0.21" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="RAN"/>
+      <category name="4G-LTE"/>
+   </node>
+   <node foreign-id="enb-rural-202" node-label="enb-rural-202" building="Site 202 - Rural coverage (simulated)">
+      <interface ip-addr="172.30.0.22" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="RAN"/>
+      <category name="4G-LTE"/>
+   </node>
+   <node foreign-id="csr-hub-01" node-label="csr-hub-01" building="Hub 01 - Cell site aggregation (simulated)">
+      <interface ip-addr="172.30.0.31" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="Transport"/>
+      <category name="Backhaul"/>
+   </node>
+   <node foreign-id="agg-core-01" node-label="agg-core-01" building="Core POP - Backhaul aggregation (simulated)">
+      <interface ip-addr="172.30.0.41" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="Transport"/>
+      <category name="Core"/>
+   </node>
+</model-import>

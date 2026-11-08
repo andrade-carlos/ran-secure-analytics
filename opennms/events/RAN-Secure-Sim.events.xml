@@ -1,0 +1,60 @@
+<events xmlns="http://xmlns.opennms.org/xsd/eventconf">
+   <!--
+     RAN-Secure Analytics Platform - event definitions for RAN-SECURE-SIM-MIB notifications.
+
+     SNMPv2 trap OIDs .1.3.6.1.4.1.32473.5.3.0.N are mapped by Horizon (RFC 3584)
+     to enterprise .1.3.6.1.4.1.32473.5.3, generic 6, specific N.
+
+     Horizon 35+ stores event definitions in the database: this file is uploaded by
+     scripts/provision.sh through POST /opennms/api/v2/eventconf/upload.
+   -->
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.5.3</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>1</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/ranCellOutage</uei>
+      <event-label>RAN-SECURE-SIM-MIB defined trap event: ranCellOutage</event-label>
+      <descr>&lt;p>Cell &lt;b>%parm[#1]%&lt;/b> (%parm[#2]%) on %nodelabel% went out of service.
+         Subscribers in its coverage area may have lost service.&lt;/p>
+         &lt;p>Recommended action: check the radio unit, fronthaul and power at the site,
+         and verify neighbouring cells are absorbing the traffic.&lt;/p></descr>
+      <logmsg dest="logndisplay">&lt;p>Cell %parm[#1]% (%parm[#2]%) is out of service.&lt;/p></logmsg>
+      <severity>Major</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="1" auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.5.3</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>2</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/ranCellRestored</uei>
+      <event-label>RAN-SECURE-SIM-MIB defined trap event: ranCellRestored</event-label>
+      <descr>&lt;p>Cell &lt;b>%parm[#1]%&lt;/b> (%parm[#2]%) on %nodelabel% is back in service.&lt;/p></descr>
+      <logmsg dest="logndisplay">&lt;p>Cell %parm[#1]% (%parm[#2]%) restored.&lt;/p></logmsg>
+      <severity>Normal</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="2"
+                  clear-key="uei.opennms.org/vendor/RANSecure/traps/ranCellOutage:%dpname%:%nodeid%:%parm[#1]%"
+                  auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.5.3</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>3</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/ranSecurityAuthFailure</uei>
+      <event-label>RAN-SECURE-SIM-MIB defined trap event: ranSecurityAuthFailure</event-label>
+      <descr>&lt;p>Repeated failed management-plane login attempts were detected on
+         %nodelabel% (%interface%), element type %parm[#1]%. This pattern is consistent
+         with a brute-force attack against the OAM interface.&lt;/p>
+         &lt;p>Recommended action: verify the source addresses in the element security log,
+         block them at the OAM firewall/ACL, rotate credentials and confirm that the
+         management plane is only reachable from the NOC network.&lt;/p></descr>
+      <logmsg dest="logndisplay">&lt;p>SECURITY: repeated failed OAM logins on %nodelabel%.&lt;/p></logmsg>
+      <severity>Critical</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%" alarm-type="3" auto-clean="false"/>
+   </event>
+</events>

@@ -1,0 +1,254 @@
+RAN-SECURE-SIM-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE, OBJECT-IDENTITY,
+    NOTIFICATION-TYPE, Gauge32, Integer32, enterprises
+        FROM SNMPv2-SMI
+    DisplayString
+        FROM SNMPv2-TC
+    MODULE-COMPLIANCE, OBJECT-GROUP, NOTIFICATION-GROUP
+        FROM SNMPv2-CONF;
+
+ranSecureSim MODULE-IDENTITY
+    LAST-UPDATED "202611050000Z"
+    ORGANIZATION "RAN-Secure Analytics Platform project"
+    CONTACT-INFO "Carlos Andres Andrade Marquez"
+    DESCRIPTION
+        "MIB module exposed by the simulated 4G/5G RAN elements
+         (eNodeB / gNodeB) of the RAN-Secure Analytics Platform demo
+         environment. It models the node health and per-cell KPIs that
+         a small or regional operator needs to monitor.
+
+         The module is registered under enterprise 32473, which RFC 5612
+         reserves for documentation and examples. It is intended for
+         simulation and demonstration only."
+    REVISION "202611050000Z"
+    DESCRIPTION "Initial version."
+    ::= { enterprises 32473 5 }
+
+ranNodeObjects   OBJECT IDENTIFIER ::= { ranSecureSim 1 }
+ranCellObjects   OBJECT IDENTIFIER ::= { ranSecureSim 2 }
+ranNotifications OBJECT IDENTIFIER ::= { ranSecureSim 3 }
+ranConformance   OBJECT IDENTIFIER ::= { ranSecureSim 4 }
+ranNotificationsPrefix OBJECT IDENTIFIER ::= { ranNotifications 0 }
+ranProducts      OBJECT IDENTIFIER ::= { ranSecureSim 100 }
+
+ranProductGNodeB OBJECT-IDENTITY
+    STATUS current
+    DESCRIPTION "sysObjectID of a simulated 5G NR gNodeB."
+    ::= { ranProducts 1 }
+
+ranProductENodeB OBJECT-IDENTITY
+    STATUS current
+    DESCRIPTION "sysObjectID of a simulated 4G LTE eNodeB."
+    ::= { ranProducts 2 }
+
+-- ---------------------------------------------------------------
+-- Node-level objects
+-- ---------------------------------------------------------------
+
+ranNodeType OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE (0..32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Type of RAN element (gNodeB or eNodeB)."
+    ::= { ranNodeObjects 1 }
+
+ranNodeCpuLoad OBJECT-TYPE
+    SYNTAX      Gauge32 (0..100)
+    UNITS       "percent"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Baseband processing unit CPU load."
+    ::= { ranNodeObjects 2 }
+
+ranNodeTemperature OBJECT-TYPE
+    SYNTAX      Gauge32 (0..150)
+    UNITS       "degrees Celsius"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Baseband unit board temperature."
+    ::= { ranNodeObjects 3 }
+
+ranNodeActiveAlarms OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Number of active alarms on the element."
+    ::= { ranNodeObjects 4 }
+
+ranNodeConnectedUEs OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Total number of RRC-connected UEs on the element."
+    ::= { ranNodeObjects 5 }
+
+-- ---------------------------------------------------------------
+-- Cell table
+-- ---------------------------------------------------------------
+
+ranCellTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF RanCellEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Per-cell performance indicators."
+    ::= { ranCellObjects 1 }
+
+ranCellEntry OBJECT-TYPE
+    SYNTAX      RanCellEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "KPIs of one cell served by the element."
+    INDEX       { ranCellIndex }
+    ::= { ranCellTable 1 }
+
+RanCellEntry ::= SEQUENCE {
+    ranCellIndex          Integer32,
+    ranCellName           DisplayString,
+    ranCellRat            DisplayString,
+    ranCellPrbDlUtil      Gauge32,
+    ranCellPrbUlUtil      Gauge32,
+    ranCellRrcSuccRate    Gauge32,
+    ranCellActiveUEs      Gauge32,
+    ranCellDlThroughput   Gauge32,
+    ranCellDropRate       Gauge32,
+    ranCellAvailability   Gauge32
+}
+
+ranCellIndex OBJECT-TYPE
+    SYNTAX      Integer32 (1..65535)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Cell index, unique within the element."
+    ::= { ranCellEntry 1 }
+
+ranCellName OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE (0..32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Cell name."
+    ::= { ranCellEntry 2 }
+
+ranCellRat OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE (0..8))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Radio access technology of the cell (NR or LTE)."
+    ::= { ranCellEntry 3 }
+
+ranCellPrbDlUtil OBJECT-TYPE
+    SYNTAX      Gauge32 (0..100)
+    UNITS       "percent"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Downlink Physical Resource Block utilization."
+    ::= { ranCellEntry 4 }
+
+ranCellPrbUlUtil OBJECT-TYPE
+    SYNTAX      Gauge32 (0..100)
+    UNITS       "percent"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Uplink Physical Resource Block utilization."
+    ::= { ranCellEntry 5 }
+
+ranCellRrcSuccRate OBJECT-TYPE
+    SYNTAX      Gauge32 (0..10000)
+    UNITS       "hundredths of a percent"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "RRC connection setup success rate (9950 = 99.50%)."
+    ::= { ranCellEntry 6 }
+
+ranCellActiveUEs OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Number of active UEs in the cell."
+    ::= { ranCellEntry 7 }
+
+ranCellDlThroughput OBJECT-TYPE
+    SYNTAX      Gauge32
+    UNITS       "kbit/s"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Cell downlink throughput."
+    ::= { ranCellEntry 8 }
+
+ranCellDropRate OBJECT-TYPE
+    SYNTAX      Gauge32 (0..10000)
+    UNITS       "hundredths of a percent"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Call / E-RAB (LTE) or PDU session (NR) drop rate
+                 (35 = 0.35%)."
+    ::= { ranCellEntry 9 }
+
+ranCellAvailability OBJECT-TYPE
+    SYNTAX      Gauge32 (0..10000)
+    UNITS       "hundredths of a percent"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Cell availability over the last interval."
+    ::= { ranCellEntry 10 }
+
+-- ---------------------------------------------------------------
+-- Notifications
+-- ---------------------------------------------------------------
+
+ranCellOutage NOTIFICATION-TYPE
+    OBJECTS     { ranCellName, ranCellRat }
+    STATUS      current
+    DESCRIPTION "A cell went out of service."
+    ::= { ranNotificationsPrefix 1 }
+
+ranCellRestored NOTIFICATION-TYPE
+    OBJECTS     { ranCellName, ranCellRat }
+    STATUS      current
+    DESCRIPTION "A previously failed cell is back in service."
+    ::= { ranNotificationsPrefix 2 }
+
+ranSecurityAuthFailure NOTIFICATION-TYPE
+    OBJECTS     { ranNodeType }
+    STATUS      current
+    DESCRIPTION "Repeated failed management-plane login attempts were
+                 detected on the element (possible brute-force attack)."
+    ::= { ranNotificationsPrefix 3 }
+
+-- ---------------------------------------------------------------
+-- Conformance
+-- ---------------------------------------------------------------
+
+ranGroups      OBJECT IDENTIFIER ::= { ranConformance 1 }
+ranCompliances OBJECT IDENTIFIER ::= { ranConformance 2 }
+
+ranNodeGroup OBJECT-GROUP
+    OBJECTS { ranNodeType, ranNodeCpuLoad, ranNodeTemperature,
+              ranNodeActiveAlarms, ranNodeConnectedUEs }
+    STATUS  current
+    DESCRIPTION "Node-level objects."
+    ::= { ranGroups 1 }
+
+ranCellGroup OBJECT-GROUP
+    OBJECTS { ranCellIndex, ranCellName, ranCellRat, ranCellPrbDlUtil,
+              ranCellPrbUlUtil, ranCellRrcSuccRate, ranCellActiveUEs,
+              ranCellDlThroughput, ranCellDropRate, ranCellAvailability }
+    STATUS  current
+    DESCRIPTION "Per-cell KPI objects."
+    ::= { ranGroups 2 }
+
+ranNotificationGroup NOTIFICATION-GROUP
+    NOTIFICATIONS { ranCellOutage, ranCellRestored, ranSecurityAuthFailure }
+    STATUS  current
+    DESCRIPTION "Notifications sent by the simulated elements."
+    ::= { ranGroups 3 }
+
+ranCompliance MODULE-COMPLIANCE
+    STATUS  current
+    DESCRIPTION "Compliance statement for simulated RAN elements."
+    MODULE
+        MANDATORY-GROUPS { ranNodeGroup, ranCellGroup, ranNotificationGroup }
+    ::= { ranCompliances 1 }
+
+END

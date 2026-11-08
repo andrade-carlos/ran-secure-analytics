@@ -1,0 +1,143 @@
+# RAN-Secure Analytics Platform - Phase 1 demo environment
+#
+#   database   PostgreSQL (OpenNMS inventory, events, alarms)
+#   horizon    OpenNMS Horizon (discovery, SNMP collection, fault & alarm management)
+#   grafana    Grafana + OpenNMS Plugin for Grafana (dashboards)
+#   gnb-* / enb-* / csr-* / agg-*   simulated 4G/5G RAN and backhaul elements (SNMP)
+#
+# Quick start:  cp .env.example .env  (edit passwords)  &&  docker compose up -d --build
+#               ./scripts/provision.sh
+
+name: ran-secure
+
+x-ran-element: &ran-element
+  build: ./simulator
+  image: ran-secure/ran-element-sim:1.0
+  restart: unless-stopped
+  environment:
+    TRAP_HOST: horizon
+    TRAP_PORT: "1162"
+
+services:
+  database:
+    image: postgres:${POSTGRES_VERSION:-16}
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - data-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      ran-net:
+        ipv4_address: 172.30.0.3
+
+  horizon:
+    image: opennms/horizon:${HORIZON_VERSION:-36.0.4}
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      TZ: ${TZ:-UTC}
+      POSTGRES_HOST: database
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      OPENNMS_DBNAME: opennms
+      OPENNMS_DBUSER: opennms
+      OPENNMS_DBPASS: ${OPENNMS_DB_PASSWORD:?set OPENNMS_DB_PASSWORD in .env}
+      JAVA_OPTS: ${HORIZON_JAVA_OPTS:--Xms1g -Xmx2g}
+    command: ["-s"]
+    volumes:
+      - data-opennms:/opennms-data
+      - data-opennms-etc:/opt/opennms/etc
+      - ./opennms/overlay:/opt/opennms-overlay:ro
+    ports:
+      - "${BIND_ADDR:-127.0.0.1}:8980:8980/tcp"   # Web UI + REST API
+      - "${BIND_ADDR:-127.0.0.1}:10162:1162/udp"  # SNMP traps from external devices
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sSf http://localhost:8980/opennms/rest/health/probe | grep -q 'Everything is awesome'"]
+      interval: 30s
+      timeout: 10s
+      retries: 20
+      start_period: 180s
+    networks:
+      ran-net:
+        ipv4_address: 172.30.0.5
+
+  grafana:
+    image: grafana/grafana-oss:${GRAFANA_VERSION:-12.4.0}
+    restart: unless-stopped
+    depends_on:
+      - horizon
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?set GRAFANA_ADMIN_PASSWORD in .env}
+      GF_PLUGINS_PREINSTALL_SYNC: opennms-opennms-app
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+      OPENNMS_API_USER: ${OPENNMS_API_USER:-admin}
+      OPENNMS_API_PASSWORD: ${OPENNMS_API_PASSWORD:?set OPENNMS_API_PASSWORD in .env}
+    volumes:
+      - data-grafana:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+    ports:
+      - "${BIND_ADDR:-127.0.0.1}:3000:3000/tcp"
+    networks:
+      ran-net:
+        ipv4_address: 172.30.0.6
+
+  # ---------------- Simulated RAN (one container per network element) ----------------
+  gnb-site-101:
+    <<: *ran-element
+    hostname: gnb-site-101
+    volumes: ["./simulator/data/gnb-site-101:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.11 } }
+
+  gnb-site-102:
+    <<: *ran-element
+    hostname: gnb-site-102
+    volumes: ["./simulator/data/gnb-site-102:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.12 } }
+
+  enb-rural-201:
+    <<: *ran-element
+    hostname: enb-rural-201
+    volumes: ["./simulator/data/enb-rural-201:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.21 } }
+
+  enb-rural-202:
+    <<: *ran-element
+    hostname: enb-rural-202
+    volumes: ["./simulator/data/enb-rural-202:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.22 } }
+
+  csr-hub-01:
+    <<: *ran-element
+    hostname: csr-hub-01
+    volumes: ["./simulator/data/csr-hub-01:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.31 } }
+
+  agg-core-01:
+    <<: *ran-element
+    hostname: agg-core-01
+    volumes: ["./simulator/data/agg-core-01:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.41 } }
+
+networks:
+  ran-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+
+volumes:
+  data-postgres:
+  data-opennms:
+  data-opennms-etc:
+  data-grafana:

@@ -1,0 +1,36 @@
+# Cloud override: adds the Caddy TLS reverse proxy (ports 80/443).
+# OpenNMS and Grafana stay bound to 127.0.0.1 and are reachable from the
+# Internet only through HTTPS.
+#
+#   docker compose -f docker-compose.yml -f deploy/docker-compose.cloud.yml up -d --build
+
+services:
+  caddy:
+    image: caddy:${CADDY_VERSION:-2}
+    restart: unless-stopped
+    depends_on:
+      - horizon
+      - grafana
+    environment:
+      ACME_EMAIL: ${ACME_EMAIL:?set ACME_EMAIL in .env}
+      ONMS_HOST: ${ONMS_HOST:?set ONMS_HOST in .env}
+      GRAFANA_HOST: ${GRAFANA_HOST:?set GRAFANA_HOST in .env}
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "443:443/udp"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - data-caddy:/data
+      - data-caddy-config:/config
+    networks:
+      ran-net:
+        ipv4_address: 172.30.0.7
+
+  grafana:
+    environment:
+      GF_SERVER_ROOT_URL: https://${GRAFANA_HOST}/
+
+volumes:
+  data-caddy:
+  data-caddy-config:

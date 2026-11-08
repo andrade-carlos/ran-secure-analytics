@@ -1,0 +1,39 @@
+<datacollection-group xmlns="http://xmlns.opennms.org/xsd/config/datacollection" name="RAN-Secure-Sim">
+   <!--
+     RAN-Secure Analytics Platform: KPI collection for simulated 4G/5G RAN elements.
+     MIB: mibs/RAN-SECURE-SIM-MIB.txt (enterprise 32473, RFC 5612 documentation range).
+   -->
+   <resourceType name="ranCellEntry" label="RAN Cell (RAN-SECURE-SIM-MIB)" resourceLabel="${ranCellName} (${ranCellRat})">
+      <persistenceSelectorStrategy class="org.opennms.netmgt.collection.support.PersistAllSelectorStrategy"/>
+      <storageStrategy class="org.opennms.netmgt.collection.support.IndexStorageStrategy"/>
+   </resourceType>
+
+   <!-- Node-level health (scalars) -->
+   <group name="ran-node-health" ifType="ignore">
+      <mibObj oid=".1.3.6.1.4.1.32473.5.1.2" instance="0" alias="ranNodeCpuLoad" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.5.1.3" instance="0" alias="ranNodeTemp" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.5.1.4" instance="0" alias="ranNodeAlarms" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.5.1.5" instance="0" alias="ranNodeUEs" type="gauge"/>
+   </group>
+
+   <!-- Per-cell KPIs (ranCellTable) -->
+   <group name="ran-cell-kpis" ifType="all">
+      <mibObj oid=".1.3.6.1.4.1.32473.5.2.1.1.2" instance="ranCellEntry" alias="ranCellName" type="string"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.5.2.1.1.3" instance="ranCellEntry" alias="ranCellRat" type="string"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.5.2.1.1.4" instance="ranCellEntry" alias="ranPrbDlUtil" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.5.2.1.1.5" instance="ranCellEntry" alias="ranPrbUlUtil" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.5.2.1.1.6" instance="ranCellEntry" alias="ranRrcSuccRate" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.5.2.1.1.7" instance="ranCellEntry" alias="ranActiveUEs" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.5.2.1.1.8" instance="ranCellEntry" alias="ranDlThroughput" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.5.2.1.1.9" instance="ranCellEntry" alias="ranDropRate" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.5.2.1.1.10" instance="ranCellEntry" alias="ranAvailability" type="gauge"/>
+   </group>
+
+   <systemDef name="RAN-Secure Simulated gNodeB/eNodeB">
+      <sysoidMask>.1.3.6.1.4.1.32473.5.100.</sysoidMask>
+      <collect>
+         <includeGroup>ran-node-health</includeGroup>
+         <includeGroup>ran-cell-kpis</includeGroup>
+      </collect>
+   </systemDef>
+</datacollection-group>

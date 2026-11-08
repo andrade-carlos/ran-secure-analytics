@@ -1,0 +1,66 @@
+[
+  {
+    "name": "gnb-site-101",
+    "ip": "172.30.0.11",
+    "kind": "gNodeB",
+    "location": "Site 101 - Urban macro (simulated)",
+    "cells": [
+      "NR-101-A",
+      "NR-101-B",
+      "NR-101-C"
+    ],
+    "oids": 91
+  },
+  {
+    "name": "gnb-site-102",
+    "ip": "172.30.0.12",
+    "kind": "gNodeB",
+    "location": "Site 102 - Suburban macro (simulated)",
+    "cells": [
+      "NR-102-A",
+      "NR-102-B",
+      "NR-102-C"
+    ],
+    "oids": 91
+  },
+  {
+    "name": "enb-rural-201",
+    "ip": "172.30.0.21",
+    "kind": "eNodeB",
+    "location": "Site 201 - Rural coverage (simulated)",
+    "cells": [
+      "LTE-201-A",
+      "LTE-201-B",
+      "LTE-201-C"
+    ],
+    "oids": 76
+  },
+  {
+    "name": "enb-rural-202",
+    "ip": "172.30.0.22",
+    "kind": "eNodeB",
+    "location": "Site 202 - Rural coverage (simulated)",
+    "cells": [
+      "LTE-202-A",
+      "LTE-202-B",
+      "LTE-202-C"
+    ],
+    "oids": 76
+  },
+  {
+    "name": "csr-hub-01",
+    "ip": "172.30.0.31",
+    "kind": "CellSiteRouter",
+    "location": "Hub 01 - Cell site aggregation (simulated)",
+    "cells": [],
+    "oids": 101
+  },
+  {
+    "name": "agg-core-01",
+    "ip": "172.30.0.41",
+    "kind": "AggregationRouter",
+    "location": "Core POP - Backhaul aggregation (simulated)",
+    "cells": [],
+    "oids": 56
+  }
+]

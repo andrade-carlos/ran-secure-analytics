@@ -1,0 +1,10 @@
+<snmp-config xmlns="http://xmlns.opennms.org/xsd/config/snmp" version="v2c" read-community="public" timeout="1800" retry="1">
+   <!--
+     RAN-Secure Analytics Platform - simulated RAN (docker network 172.30.0.0/24).
+     The simulators run unprivileged and answer on UDP/1161.
+     For real customer networks use SNMPv3 (authPriv) definitions instead of v2c.
+   -->
+   <definition version="v2c" port="1161" read-community="public" timeout="2000" retry="2">
+      <range begin="172.30.0.10" end="172.30.0.250"/>
+   </definition>
+</snmp-config>

@@ -1,0 +1,23 @@
+# OpenNMS datasources (OpenNMS Plugin for Grafana).
+# Credentials come from the grafana container environment (see .env).
+apiVersion: 1
+datasources:
+  - name: OpenNMS Performance
+    type: opennms-performance-datasource
+    access: proxy
+    url: http://horizon:8980/opennms
+    basicAuth: true
+    basicAuthUser: ${OPENNMS_API_USER}
+    secureJsonData:
+      basicAuthPassword: ${OPENNMS_API_PASSWORD}
+    isDefault: true
+    editable: true
+  - name: OpenNMS Entities
+    type: opennms-entity-datasource
+    access: proxy
+    url: http://horizon:8980/opennms
+    basicAuth: true
+    basicAuthUser: ${OPENNMS_API_USER}
+    secureJsonData:
+      basicAuthPassword: ${OPENNMS_API_PASSWORD}
+    editable: true

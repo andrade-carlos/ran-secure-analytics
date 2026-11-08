@@ -1,0 +1,6 @@
+# Enables the OpenNMS Plugin for Grafana (installed through GF_PLUGINS_PREINSTALL_SYNC).
+apiVersion: 1
+apps:
+  - type: opennms-opennms-app
+    org_id: 1
+    disabled: false
