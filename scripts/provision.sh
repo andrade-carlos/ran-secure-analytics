@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
-# RAN-Secure Analytics Platform - first-time provisioning of the demo environment.
+# RAN-Secure Analytics Platform - provisioning of the demo environment.
+# Safe to run again after every update (it only creates or updates configuration).
 #
 #  1. waits until OpenNMS Horizon is up
-#  2. uploads the RAN-SECURE-SIM-MIB event definitions (alarms for cell outage / security)
-#  3. creates the "RAN-Sim" requisition and imports the simulated network elements
+#  2. uploads the event definitions (alarms for RAN, transport and access notifications)
+#  3. uploads the SNMP data collection groups (RAN KPIs + transport/access metrics)
+#  4. uploads the RAN-Sim provisioning policy (collect statistics on every interface)
+#  5. creates the "RAN-Sim" requisition and imports the simulated network elements
 #
 # Usage: ./scripts/provision.sh            (reads credentials from .env)
+#
+# After the first run on an existing server, restart Horizon once so it reloads the
+# graph definitions and the surveillance view:  docker compose restart horizon
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -14,6 +20,7 @@ cd "$(dirname "$0")/.."
 ONMS_URL="${ONMS_URL:-http://127.0.0.1:8980/opennms}"
 AUTH="${OPENNMS_API_USER:-admin}:${OPENNMS_API_PASSWORD:-admin}"
 FS="RAN-Sim"
+DC_PROFILE="${ONMS_DC_PROFILE:-default}"     # SNMP data collection profile (snmp-collection name)
 
 log() { printf '[%s] %s\n' "$(date -u +%H:%M:%S)" "$*"; }
 
@@ -27,12 +34,33 @@ for i in $(seq 1 90); do
   sleep 10
 done
 
-log "Uploading event definitions (RAN-Secure-Sim.events.xml) ..."
-curl -sf -u "$AUTH" -X POST \
-  -F "upload=@opennms/events/RAN-Secure-Sim.events.xml;type=application/xml" \
-  "${ONMS_URL}/api/v2/eventconf/upload" >/dev/null \
-  && log "Event definitions uploaded." \
-  || log "WARNING: event upload failed (already uploaded? check Admin > Manage Event Configuration)."
+for f in opennms/events/*.events.xml; do
+  log "Uploading event definitions ($(basename "$f")) ..."
+  curl -sf -u "$AUTH" -X POST \
+    -F "upload=@${f};type=application/xml" \
+    "${ONMS_URL}/api/v2/eventconf/upload" >/dev/null \
+    && log "  uploaded." \
+    || log "  WARNING: upload failed (already uploaded? check Admin > Manage Event Configuration)."
+done
+
+log "Uploading SNMP data collection groups to profile '${DC_PROFILE}' ..."
+dc_args=()
+for f in opennms/etc-first-start/datacollection/*.xml; do
+  dc_args+=(-F "upload=@${f};type=application/xml")
+done
+if dc_out=$(curl -sS -u "$AUTH" -X POST "${dc_args[@]}" -F "profileNames=${DC_PROFILE}" \
+      -w '\nHTTP %{http_code}' "${ONMS_URL}/api/v2/datacollectionconf/upload"); then
+  log "  response: $(echo "$dc_out" | tr -s '\n' ' ' | cut -c1-400)"
+else
+  log "  WARNING: data collection upload failed - add the groups in Admin > Manage SNMP Data Collection Config."
+fi
+
+log "Uploading provisioning policy for ${FS} (collect statistics on all interfaces) ..."
+curl -sf -u "$AUTH" -X POST -H "Content-Type: application/xml" \
+  --data-binary @opennms/requisition/RAN-Sim.foreign-source.xml \
+  "${ONMS_URL}/rest/foreignSources" >/dev/null \
+  && log "  uploaded." \
+  || log "  WARNING: foreign source upload failed (check Admin > Manage Provisioning Requisitions > ${FS} > Edit Definition)."
 
 log "Creating requisition ${FS} ..."
 curl -sf -u "$AUTH" -X POST -H "Content-Type: application/xml" \
@@ -42,5 +70,6 @@ curl -sf -u "$AUTH" -X POST -H "Content-Type: application/xml" \
 log "Importing requisition ${FS} ..."
 curl -sf -u "$AUTH" -X PUT "${ONMS_URL}/rest/requisitions/${FS}/import?rescanExisting=true" >/dev/null
 
-log "Done. Nodes appear within 1-2 minutes; KPI graphs after 2-3 collection cycles (5 min each)."
+log "Done. Nodes appear within 1-2 minutes; graphs after 2-3 collection cycles (5 min each)."
+log "Topology map (LLDP) is built ~1 minute after Horizon starts: Maps > Topology > Enhanced Linkd."
 log "OpenNMS: ${ONMS_URL}   Grafana: http://127.0.0.1:3000"

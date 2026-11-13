@@ -1,0 +1,212 @@
+<events xmlns="http://xmlns.opennms.org/xsd/eventconf">
+   <!--
+     RAN-Secure Analytics Platform - event definitions for RAN-SECURE-NET-SIM-MIB notifications
+     (simulated IP/MPLS routers, Ethernet switches, DWDM and GPON OLTs).
+
+     SNMPv2 trap OIDs .1.3.6.1.4.1.32473.7.9.0.N are mapped by Horizon (RFC 3584)
+     to enterprise .1.3.6.1.4.1.32473.7.9, generic 6, specific N.
+
+     Every problem event raises an alarm (alarm-type 1) whose reduction key includes the
+     node and the affected object (LSP, peer, port, PON); the matching recovery event
+     (alarm-type 2) clears it automatically.
+
+     Horizon 35+ stores event definitions in the database: this file is uploaded by
+     scripts/provision.sh through POST /opennms/api/v2/eventconf/upload.
+   -->
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>1</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsLspPathProtected</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsLspPathProtected</event-label>
+      <descr>&lt;p&gt;MPLS LSP &lt;b&gt;%parm[#1]%&lt;/b&gt; on %nodelabel% (towards %parm[#2]%) lost its primary path and is now carried by the &lt;b&gt;secondary path&lt;/b&gt; over the diverse fiber route.&lt;/p&gt;&lt;p&gt;Traffic is protected, but the network is running without redundancy and latency is higher. Look for the root cause in the transport layer at the same time (fiber cut, DWDM loss of signal, core link down).&lt;/p&gt;&lt;p&gt;Recommended action: restore the primary path before a second failure causes an outage.&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;LSP %parm[#1]% switched to its secondary path (protection active).&lt;/p&gt;</logmsg>
+      <severity>Warning</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="1" auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>2</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsLspPathRestored</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsLspPathRestored</event-label>
+      <descr>&lt;p&gt;MPLS LSP &lt;b&gt;%parm[#1]%&lt;/b&gt; on %nodelabel% (towards %parm[#2]%) is back on its primary path.&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;LSP %parm[#1]% back on its primary path.&lt;/p&gt;</logmsg>
+      <severity>Normal</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="2"
+                  clear-key="uei.opennms.org/vendor/RANSecure/traps/rsLspPathProtected:%dpname%:%nodeid%:%parm[#1]%"
+                  auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>3</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsBgpPeerDown</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsBgpPeerDown</event-label>
+      <descr>&lt;p&gt;BGP session &lt;b&gt;%parm[#1]%&lt;/b&gt; (%parm[#2]%) on %nodelabel% left the Established state. All prefixes learned from this peer were withdrawn.&lt;/p&gt;&lt;p&gt;If this is the upstream transit, Internet traffic of the operator's subscribers is affected.&lt;/p&gt;&lt;p&gt;Recommended action: check the physical link and the BGP state on both sides, the peer's maintenance notices and the session logs (hold-timer expiry, notifications received).&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;BGP peer %parm[#1]% (%parm[#2]%) is down.&lt;/p&gt;</logmsg>
+      <severity>Major</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#2]%" alarm-type="1" auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>4</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsBgpPeerUp</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsBgpPeerUp</event-label>
+      <descr>&lt;p&gt;BGP session &lt;b&gt;%parm[#1]%&lt;/b&gt; (%parm[#2]%) on %nodelabel% is Established again.&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;BGP peer %parm[#1]% (%parm[#2]%) is up.&lt;/p&gt;</logmsg>
+      <severity>Normal</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#2]%" alarm-type="2"
+                  clear-key="uei.opennms.org/vendor/RANSecure/traps/rsBgpPeerDown:%dpname%:%nodeid%:%parm[#2]%"
+                  auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>5</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsOptLos</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsOptLos</event-label>
+      <descr>&lt;p&gt;Loss of signal on optical port &lt;b&gt;%parm[#1]%&lt;/b&gt; of %nodelabel% (%parm[#2]%).&lt;/p&gt;&lt;p&gt;On a line port this usually means a fiber cut or a failed amplifier on the span; every wavelength on the span is affected. On a channel port the wavelength carrying the listed circuit is down.&lt;/p&gt;&lt;p&gt;Recommended action: correlate the loss-of-signal alarms of both ends of the span, check the optical time-domain reflectometer (OTDR) trace to locate the cut and dispatch the fiber crew.&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;Optical loss of signal on %parm[#1]% (%parm[#2]%).&lt;/p&gt;</logmsg>
+      <severity>Critical</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="1" auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>6</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsOptLosCleared</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsOptLosCleared</event-label>
+      <descr>&lt;p&gt;Optical signal restored on port &lt;b&gt;%parm[#1]%&lt;/b&gt; of %nodelabel% (%parm[#2]%).&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;Optical signal restored on %parm[#1]%.&lt;/p&gt;</logmsg>
+      <severity>Normal</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="2"
+                  clear-key="uei.opennms.org/vendor/RANSecure/traps/rsOptLos:%dpname%:%nodeid%:%parm[#1]%"
+                  auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>7</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsPonLos</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsPonLos</event-label>
+      <descr>&lt;p&gt;All ONUs on PON &lt;b&gt;%parm[#1]%&lt;/b&gt; of %nodelabel% were lost at the same time &lt;b&gt;without dying-gasp messages&lt;/b&gt; (ONUs online now: %parm[#2]%).&lt;/p&gt;&lt;p&gt;The ONUs did not report a power failure, so the cause is in the fiber plant: the feeder fiber, the splitter or the OLT optics. Every subscriber on this PON is out of service.&lt;/p&gt;&lt;p&gt;Recommended action: dispatch the fiber crew to the feeder route of this PON; check the OLT transmit power first to rule out the OLT side.&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;PON %parm[#1]% loss of signal: feeder fiber cut suspected.&lt;/p&gt;</logmsg>
+      <severity>Critical</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="1" auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>8</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsPonLosCleared</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsPonLosCleared</event-label>
+      <descr>&lt;p&gt;ONUs are ranging again on PON &lt;b&gt;%parm[#1]%&lt;/b&gt; of %nodelabel% (ONUs online: %parm[#2]%).&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;PON %parm[#1]% back in service.&lt;/p&gt;</logmsg>
+      <severity>Normal</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="2"
+                  clear-key="uei.opennms.org/vendor/RANSecure/traps/rsPonLos:%dpname%:%nodeid%:%parm[#1]%"
+                  auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>9</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsPonDyingGaspBurst</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsPonDyingGaspBurst</event-label>
+      <descr>&lt;p&gt;&lt;b&gt;%parm[#2]% ONUs&lt;/b&gt; on PON &lt;b&gt;%parm[#1]%&lt;/b&gt; of %nodelabel% sent a dying-gasp message within a short window (ONUs still online: %parm[#3]%).&lt;/p&gt;&lt;p&gt;Dying gasp means the ONU lost mains power at the subscriber premises. Many at once on the same PON points to a &lt;b&gt;commercial power outage in the area&lt;/b&gt;, not to a fiber or OLT fault: there is no need to dispatch a fiber crew.&lt;/p&gt;&lt;p&gt;Recommended action: check the power utility's outage map, inform the customer care team, and confirm that the ONUs come back when power is restored.&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;PON %parm[#1]%: %parm[#2]% ONUs dying gasp - area power outage.&lt;/p&gt;</logmsg>
+      <severity>Major</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="1" auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>10</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsPonDyingGaspCleared</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsPonDyingGaspCleared</event-label>
+      <descr>&lt;p&gt;The ONUs on PON &lt;b&gt;%parm[#1]%&lt;/b&gt; of %nodelabel% that had lost power are back online (ONUs online: %parm[#2]%).&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;PON %parm[#1]%: ONUs back after power outage.&lt;/p&gt;</logmsg>
+      <severity>Normal</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="2"
+                  clear-key="uei.opennms.org/vendor/RANSecure/traps/rsPonDyingGaspBurst:%dpname%:%nodeid%:%parm[#1]%"
+                  auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>11</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsPonRxPowerLow</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsPonRxPowerLow</event-label>
+      <descr>&lt;p&gt;The worst ONU receive power on PON &lt;b&gt;%parm[#1]%&lt;/b&gt; of %nodelabel% fell to &lt;b&gt;%parm[#2]%&lt;/b&gt; (hundredths of a dBm; -2700 = -27.00 dBm), below the -27 dBm alarm threshold.&lt;/p&gt;&lt;p&gt;Subscribers are still in service, but class B+ ONUs stop working near -28 dBm. A slow decline across the PON points to a dirty or damaged connector, a macro-bend or a degrading splitter.&lt;/p&gt;&lt;p&gt;Recommended action: schedule a preventive visit to clean and inspect the connectors on the feeder and the splitter before subscribers lose service.&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;PON %parm[#1]%: worst ONU receive power %parm[#2]% (0.01 dBm) below threshold.&lt;/p&gt;</logmsg>
+      <severity>Minor</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="1" auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>12</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsPonRxPowerNormal</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsPonRxPowerNormal</event-label>
+      <descr>&lt;p&gt;ONU receive power on PON &lt;b&gt;%parm[#1]%&lt;/b&gt; of %nodelabel% is back within limits (worst ONU: %parm[#2]% hundredths of a dBm).&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;PON %parm[#1]%: ONU receive power back to normal.&lt;/p&gt;</logmsg>
+      <severity>Normal</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="2"
+                  clear-key="uei.opennms.org/vendor/RANSecure/traps/rsPonRxPowerLow:%dpname%:%nodeid%:%parm[#1]%"
+                  auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>13</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsBroadcastStorm</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsBroadcastStorm</event-label>
+      <descr>&lt;p&gt;Broadcast storm on port &lt;b&gt;%parm[#1]%&lt;/b&gt; of %nodelabel% (%parm[#2]%): &lt;b&gt;%parm[#3]% broadcast packets per second&lt;/b&gt;, above the storm-control threshold.&lt;/p&gt;&lt;p&gt;The usual cause is a layer-2 loop at the customer site (a cable plugged twice into the customer's own switch). The storm consumes switch CPU and bandwidth and can affect other customers in the same VLAN.&lt;/p&gt;&lt;p&gt;Recommended action: confirm storm-control is shutting or rate-limiting the port, contact the customer to remove the loop, and verify STP is enabled on the customer-facing port.&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;Broadcast storm on %parm[#1]% (%parm[#2]%): %parm[#3]% pps.&lt;/p&gt;</logmsg>
+      <severity>Major</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="1" auto-clean="false"/>
+   </event>
+   <event>
+      <mask>
+         <maskelement><mename>id</mename><mevalue>.1.3.6.1.4.1.32473.7.9</mevalue></maskelement>
+         <maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement>
+         <maskelement><mename>specific</mename><mevalue>14</mevalue></maskelement>
+      </mask>
+      <uei>uei.opennms.org/vendor/RANSecure/traps/rsBroadcastStormCleared</uei>
+      <event-label>RAN-SECURE-NET-SIM-MIB defined trap event: rsBroadcastStormCleared</event-label>
+      <descr>&lt;p&gt;Broadcast traffic on port &lt;b&gt;%parm[#1]%&lt;/b&gt; of %nodelabel% (%parm[#2]%) is back below the threshold (%parm[#3]% packets per second).&lt;/p&gt;</descr>
+      <logmsg dest="logndisplay">&lt;p&gt;Broadcast storm on %parm[#1]% cleared.&lt;/p&gt;</logmsg>
+      <severity>Normal</severity>
+      <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="2"
+                  clear-key="uei.opennms.org/vendor/RANSecure/traps/rsBroadcastStorm:%dpname%:%nodeid%:%parm[#1]%"
+                  auto-clean="false"/>
+   </event>
+</events>

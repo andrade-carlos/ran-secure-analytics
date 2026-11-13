@@ -47,4 +47,84 @@
       <category name="Transport"/>
       <category name="Core"/>
    </node>
+   <node foreign-id="pe-core-01" node-label="pe-core-01" building="Core POP A - IP/MPLS provider edge (simulated)">
+      <interface ip-addr="172.30.0.51" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="Transport"/>
+      <category name="IP-MPLS"/>
+   </node>
+   <node foreign-id="p-core-01" node-label="p-core-01" building="Core POP B - IP/MPLS core (simulated)">
+      <interface ip-addr="172.30.0.52" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="Transport"/>
+      <category name="IP-MPLS"/>
+   </node>
+   <node foreign-id="pe-core-02" node-label="pe-core-02" building="Core POP B - IP/MPLS provider edge and Internet gateway (simulated)">
+      <interface ip-addr="172.30.0.53" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="Transport"/>
+      <category name="IP-MPLS"/>
+   </node>
+   <node foreign-id="sw-agg-01" node-label="sw-agg-01" building="Core POP B - Metro aggregation (simulated)">
+      <interface ip-addr="172.30.0.61" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="Transport"/>
+      <category name="Switching"/>
+   </node>
+   <node foreign-id="sw-access-01" node-label="sw-access-01" building="Business park street cabinet - enterprise access (simulated)">
+      <interface ip-addr="172.30.0.62" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="Transport"/>
+      <category name="Switching"/>
+   </node>
+   <node foreign-id="roadm-01" node-label="roadm-01" building="Core POP A - DWDM terminal (simulated)">
+      <interface ip-addr="172.30.0.71" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="Transport"/>
+      <category name="DWDM"/>
+   </node>
+   <node foreign-id="ila-01" node-label="ila-01" building="In-line amplifier hut, km 62 (simulated)">
+      <interface ip-addr="172.30.0.72" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="Transport"/>
+      <category name="DWDM"/>
+   </node>
+   <node foreign-id="roadm-02" node-label="roadm-02" building="Core POP B - DWDM terminal (simulated)">
+      <interface ip-addr="172.30.0.73" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="Transport"/>
+      <category name="DWDM"/>
+   </node>
+   <node foreign-id="olt-town-01" node-label="olt-town-01" building="Town central office - FTTH (simulated)">
+      <interface ip-addr="172.30.0.81" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="Access"/>
+      <category name="GPON"/>
+   </node>
+   <node foreign-id="olt-rural-02" node-label="olt-rural-02" building="Rural exchange - FTTH (simulated)">
+      <interface ip-addr="172.30.0.82" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="Access"/>
+      <category name="GPON"/>
+   </node>
 </model-import>
