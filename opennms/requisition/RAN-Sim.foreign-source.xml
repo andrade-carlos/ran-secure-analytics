@@ -1,0 +1,22 @@
+<foreign-source xmlns="http://xmlns.opennms.org/xsd/config/foreign-source" name="RAN-Sim">
+   <!--
+     RAN-Secure Analytics Platform: provisioning policy for the RAN-Sim requisition.
+     Horizon only collects interface statistics for interfaces that are enabled for
+     collection; by default that is not the case for interfaces without an IP address,
+     which are most ports of a router, switch, ROADM or OLT. This policy enables
+     collection on every SNMP interface of the simulated elements.
+     Uploaded by scripts/provision.sh (POST /opennms/rest/foreignSources).
+   -->
+   <scan-interval>1d</scan-interval>
+   <detectors>
+      <detector name="ICMP" class="org.opennms.netmgt.provision.detector.icmp.IcmpDetector"/>
+      <detector name="SNMP" class="org.opennms.netmgt.provision.detector.snmp.SnmpDetector"/>
+   </detectors>
+   <policies>
+      <policy name="Collect all SNMP interfaces" class="org.opennms.netmgt.provision.persist.policies.MatchingSnmpInterfacePolicy">
+         <parameter key="action" value="ENABLE_COLLECTION"/>
+         <parameter key="matchBehavior" value="ANY_PARAMETER"/>
+         <parameter key="ifName" value="~.*"/>
+      </policy>
+   </policies>
+</foreign-source>

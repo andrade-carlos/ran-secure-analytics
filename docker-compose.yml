@@ -4,6 +4,8 @@
 #   horizon    OpenNMS Horizon (discovery, SNMP collection, fault & alarm management)
 #   grafana    Grafana + OpenNMS Plugin for Grafana (dashboards)
 #   gnb-* / enb-* / csr-* / agg-*   simulated 4G/5G RAN and backhaul elements (SNMP)
+#   pe-* / p-* / sw-* / roadm-* / ila-* / olt-*   simulated transport and access network:
+#              IP/MPLS core, Ethernet aggregation, DWDM optical layer, GPON/FTTH
 #
 # Quick start:  cp .env.example .env  (edit passwords)  &&  docker compose up -d --build
 #               ./scripts/provision.sh
@@ -133,6 +135,67 @@ services:
     hostname: agg-core-01
     volumes: ["./simulator/data/agg-core-01:/data:ro"]
     networks: { ran-net: { ipv4_address: 172.30.0.41 } }
+
+  # ------------- Simulated transport and access network (simulator/transport_model.py) -------------
+  pe-core-01:
+    <<: *ran-element
+    hostname: pe-core-01
+    volumes: ["./simulator/data/pe-core-01:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.51 } }
+
+  p-core-01:
+    <<: *ran-element
+    hostname: p-core-01
+    volumes: ["./simulator/data/p-core-01:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.52 } }
+
+  pe-core-02:
+    <<: *ran-element
+    hostname: pe-core-02
+    volumes: ["./simulator/data/pe-core-02:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.53 } }
+
+  sw-agg-01:
+    <<: *ran-element
+    hostname: sw-agg-01
+    volumes: ["./simulator/data/sw-agg-01:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.61 } }
+
+  sw-access-01:
+    <<: *ran-element
+    hostname: sw-access-01
+    volumes: ["./simulator/data/sw-access-01:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.62 } }
+
+  roadm-01:
+    <<: *ran-element
+    hostname: roadm-01
+    volumes: ["./simulator/data/roadm-01:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.71 } }
+
+  ila-01:
+    <<: *ran-element
+    hostname: ila-01
+    volumes: ["./simulator/data/ila-01:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.72 } }
+
+  roadm-02:
+    <<: *ran-element
+    hostname: roadm-02
+    volumes: ["./simulator/data/roadm-02:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.73 } }
+
+  olt-town-01:
+    <<: *ran-element
+    hostname: olt-town-01
+    volumes: ["./simulator/data/olt-town-01:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.81 } }
+
+  olt-rural-02:
+    <<: *ran-element
+    hostname: olt-rural-02
+    volumes: ["./simulator/data/olt-rural-02:/data:ro"]
+    networks: { ran-net: { ipv4_address: 172.30.0.82 } }
 
 networks:
   ran-net:

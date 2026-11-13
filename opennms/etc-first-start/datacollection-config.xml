@@ -1,7 +1,7 @@
 <!--
   RAN-Secure Analytics Platform: copy of the Horizon 36.0.4 default
-  datacollection-config.xml with one addition: the "RAN-Secure-Sim" group
-  (see datacollection/ran-secure-sim.xml). Keep in sync when upgrading Horizon.
+  datacollection-config.xml with two additions: the "RAN-Secure-Sim" and
+  "RAN-Secure-Net-Sim" groups (see datacollection/). Keep in sync when upgrading Horizon.
 -->
 <datacollection-config xmlns="http://xmlns.opennms.org/xsd/config/datacollection" rrdRepository="${install.share.dir}/rrd/snmp/">
    <snmp-collection name="default" snmpStorageFlag="select">
@@ -16,6 +16,8 @@
       <include-collection dataCollectionGroup="MIB2"/>
       <!-- RAN-Secure: simulated gNodeB / eNodeB KPIs (RAN-SECURE-SIM-MIB) -->
       <include-collection dataCollectionGroup="RAN-Secure-Sim"/>
+      <!-- RAN-Secure: simulated IP/MPLS, switches, DWDM and GPON (RAN-SECURE-NET-SIM-MIB) -->
+      <include-collection dataCollectionGroup="RAN-Secure-Net-Sim"/>
       <include-collection dataCollectionGroup="3Com"/>
       <include-collection dataCollectionGroup="Acme Packet"/>
       <include-collection dataCollectionGroup="AKCP sensorProbe"/>

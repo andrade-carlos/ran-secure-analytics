@@ -1,0 +1,703 @@
+RAN-SECURE-NET-SIM-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE, OBJECT-IDENTITY,
+    NOTIFICATION-TYPE, Gauge32, Integer32, enterprises
+        FROM SNMPv2-SMI
+    DisplayString
+        FROM SNMPv2-TC
+    MODULE-COMPLIANCE, OBJECT-GROUP, NOTIFICATION-GROUP
+        FROM SNMPv2-CONF;
+
+rsNetSim MODULE-IDENTITY
+    LAST-UPDATED "202611130000Z"
+    ORGANIZATION "RAN-Secure Analytics Platform project"
+    CONTACT-INFO "Carlos Andres Andrade Marquez"
+    DESCRIPTION
+        "MIB module exposed by the simulated transport and access
+         elements of the RAN-Secure Analytics Platform demo environment:
+         IP/MPLS routers, Ethernet switches, DWDM optical elements and
+         GPON OLTs. Together with RAN-SECURE-SIM-MIB it models the end-to-end
+         network that a small or regional operator needs to monitor:
+         the radio access network and the transport that carries its
+         traffic to the core and the Internet.
+
+         Standard MIBs are used wherever they exist (IF-MIB, BGP4-MIB,
+         BRIDGE-MIB, LLDP-MIB). This module covers what has no common
+         standard and is normally found in vendor-specific MIBs: chassis
+         health, MPLS LSP path state, optical levels, GPON ONU state and
+         the related alarms.
+
+         The module is registered under enterprise 32473, which RFC 5612
+         reserves for documentation and examples. It is intended for
+         simulation and demonstration only."
+    REVISION "202611130000Z"
+    DESCRIPTION "Initial version."
+    ::= { enterprises 32473 7 }
+
+rsChassisObjects      OBJECT IDENTIFIER ::= { rsNetSim 1 }
+rsMplsObjects         OBJECT IDENTIFIER ::= { rsNetSim 2 }
+rsSwitchObjects       OBJECT IDENTIFIER ::= { rsNetSim 3 }
+rsOpticalObjects      OBJECT IDENTIFIER ::= { rsNetSim 4 }
+rsPonObjects          OBJECT IDENTIFIER ::= { rsNetSim 5 }
+rsNetNotifications    OBJECT IDENTIFIER ::= { rsNetSim 9 }
+rsNetNotificationsPrefix OBJECT IDENTIFIER ::= { rsNetNotifications 0 }
+rsNetConformance      OBJECT IDENTIFIER ::= { rsNetSim 10 }
+rsNetProducts         OBJECT IDENTIFIER ::= { rsNetSim 100 }
+
+-- ===============================================================
+-- Products (sysObjectID values), grouped by element family
+-- ===============================================================
+
+rsProductRouters  OBJECT IDENTIFIER ::= { rsNetProducts 1 }
+rsProductSwitches OBJECT IDENTIFIER ::= { rsNetProducts 2 }
+rsProductOptical  OBJECT IDENTIFIER ::= { rsNetProducts 3 }
+rsProductAccess   OBJECT IDENTIFIER ::= { rsNetProducts 4 }
+
+rsProductPeRouter OBJECT-IDENTITY
+    STATUS current
+    DESCRIPTION "Simulated IP/MPLS provider edge (PE) router."
+    ::= { rsProductRouters 1 }
+
+rsProductPRouter OBJECT-IDENTITY
+    STATUS current
+    DESCRIPTION "Simulated IP/MPLS provider core (P) router."
+    ::= { rsProductRouters 2 }
+
+rsProductAggSwitch OBJECT-IDENTITY
+    STATUS current
+    DESCRIPTION "Simulated Ethernet aggregation switch."
+    ::= { rsProductSwitches 1 }
+
+rsProductAccessSwitch OBJECT-IDENTITY
+    STATUS current
+    DESCRIPTION "Simulated Ethernet access switch."
+    ::= { rsProductSwitches 2 }
+
+rsProductRoadm OBJECT-IDENTITY
+    STATUS current
+    DESCRIPTION "Simulated DWDM reconfigurable optical add-drop multiplexer."
+    ::= { rsProductOptical 1 }
+
+rsProductIla OBJECT-IDENTITY
+    STATUS current
+    DESCRIPTION "Simulated DWDM in-line optical amplifier."
+    ::= { rsProductOptical 2 }
+
+rsProductGponOlt OBJECT-IDENTITY
+    STATUS current
+    DESCRIPTION "Simulated GPON optical line terminal."
+    ::= { rsProductAccess 1 }
+
+-- ===============================================================
+-- Chassis health (all element families)
+-- ===============================================================
+
+rsChassisType OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE (0..32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Element type (PERouter, PRouter, AggSwitch, AccessSwitch,
+                 ROADM, ILA or OLT)."
+    ::= { rsChassisObjects 1 }
+
+rsChassisCpuLoad OBJECT-TYPE
+    SYNTAX      Gauge32 (0..100)
+    UNITS       "percent"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Control-plane CPU load."
+    ::= { rsChassisObjects 2 }
+
+rsChassisMemUtil OBJECT-TYPE
+    SYNTAX      Gauge32 (0..100)
+    UNITS       "percent"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Control-plane memory utilization."
+    ::= { rsChassisObjects 3 }
+
+rsChassisTemperature OBJECT-TYPE
+    SYNTAX      Gauge32 (0..150)
+    UNITS       "degrees Celsius"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Main board temperature."
+    ::= { rsChassisObjects 4 }
+
+-- ===============================================================
+-- MPLS: label switched paths (RSVP-TE with primary/secondary path)
+-- ===============================================================
+
+rsLspTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF RsLspEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "MPLS LSPs that originate on this router."
+    ::= { rsMplsObjects 1 }
+
+rsLspEntry OBJECT-TYPE
+    SYNTAX      RsLspEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "State and performance of one LSP."
+    INDEX       { rsLspIndex }
+    ::= { rsLspTable 1 }
+
+RsLspEntry ::= SEQUENCE {
+    rsLspIndex           Integer32,
+    rsLspName            DisplayString,
+    rsLspDestination     DisplayString,
+    rsLspOperStatus      INTEGER,
+    rsLspActivePath      INTEGER,
+    rsLspBandwidthUtil   Gauge32,
+    rsLspLatency         Gauge32
+}
+
+rsLspIndex OBJECT-TYPE
+    SYNTAX      Integer32 (1..65535)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "LSP index, unique within the router."
+    ::= { rsLspEntry 1 }
+
+rsLspName OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE (0..64))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "LSP name."
+    ::= { rsLspEntry 2 }
+
+rsLspDestination OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE (0..64))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Egress router of the LSP."
+    ::= { rsLspEntry 3 }
+
+rsLspOperStatus OBJECT-TYPE
+    SYNTAX      INTEGER { up(1), down(2) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Operational status of the LSP."
+    ::= { rsLspEntry 4 }
+
+rsLspActivePath OBJECT-TYPE
+    SYNTAX      INTEGER { none(0), primary(1), secondary(2) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Path currently carrying the LSP. secondary(2) means the
+                 primary path failed and traffic is protected on the
+                 diverse route."
+    ::= { rsLspEntry 5 }
+
+rsLspBandwidthUtil OBJECT-TYPE
+    SYNTAX      Gauge32 (0..100)
+    UNITS       "percent"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Traffic carried as a percentage of the reserved bandwidth."
+    ::= { rsLspEntry 6 }
+
+rsLspLatency OBJECT-TYPE
+    SYNTAX      Gauge32
+    UNITS       "microseconds"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "One-way latency measured on the active path."
+    ::= { rsLspEntry 7 }
+
+-- ===============================================================
+-- MPLS/BGP: BGP peer summary (prefix counts are not in BGP4-MIB)
+-- ===============================================================
+
+rsBgpPeerTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF RsBgpPeerEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "BGP peers of this router. The same sessions are also
+                 exposed in the standard BGP4-MIB bgpPeerTable."
+    ::= { rsMplsObjects 2 }
+
+rsBgpPeerEntry OBJECT-TYPE
+    SYNTAX      RsBgpPeerEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "One BGP session."
+    INDEX       { rsBgpPeerIndex }
+    ::= { rsBgpPeerTable 1 }
+
+RsBgpPeerEntry ::= SEQUENCE {
+    rsBgpPeerIndex        Integer32,
+    rsBgpPeerName         DisplayString,
+    rsBgpPeerRemoteAddr   DisplayString,
+    rsBgpPeerRemoteAs     Gauge32,
+    rsBgpPeerState        INTEGER,
+    rsBgpPeerPrefixesRx   Gauge32
+}
+
+rsBgpPeerIndex OBJECT-TYPE
+    SYNTAX      Integer32 (1..65535)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Peer index, unique within the router."
+    ::= { rsBgpPeerEntry 1 }
+
+rsBgpPeerName OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE (0..64))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Peer description (for example the transit provider)."
+    ::= { rsBgpPeerEntry 2 }
+
+rsBgpPeerRemoteAddr OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE (0..46))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Remote peer address."
+    ::= { rsBgpPeerEntry 3 }
+
+rsBgpPeerRemoteAs OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Remote autonomous system number."
+    ::= { rsBgpPeerEntry 4 }
+
+rsBgpPeerState OBJECT-TYPE
+    SYNTAX      INTEGER { idle(1), connect(2), active(3), opensent(4),
+                          openconfirm(5), established(6) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "BGP finite state machine state (same values as
+                 BGP4-MIB bgpPeerState)."
+    ::= { rsBgpPeerEntry 5 }
+
+rsBgpPeerPrefixesRx OBJECT-TYPE
+    SYNTAX      Gauge32
+    UNITS       "prefixes"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Prefixes received from the peer and accepted by policy."
+    ::= { rsBgpPeerEntry 6 }
+
+-- ===============================================================
+-- Ethernet switches
+-- ===============================================================
+
+rsSwMacEntries OBJECT-TYPE
+    SYNTAX      Gauge32
+    UNITS       "entries"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Learned MAC addresses. A sudden jump together with
+                 broadcast growth points to a layer-2 loop."
+    ::= { rsSwitchObjects 1 }
+
+rsSwBroadcastRate OBJECT-TYPE
+    SYNTAX      Gauge32
+    UNITS       "packets per second"
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION "Broadcast packet rate that triggered a storm notification."
+    ::= { rsSwitchObjects 2 }
+
+rsSwPortName OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE (0..64))
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION "Port (ifName) referenced by a switch notification."
+    ::= { rsSwitchObjects 3 }
+
+rsSwPortService OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE (0..128))
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION "Customer or service on the port (ifAlias)."
+    ::= { rsSwitchObjects 4 }
+
+-- ===============================================================
+-- DWDM optical ports
+-- ===============================================================
+
+rsOptPortTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF RsOptPortEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Optical levels of line (OTS) and channel (OCh) ports."
+    ::= { rsOpticalObjects 1 }
+
+rsOptPortEntry OBJECT-TYPE
+    SYNTAX      RsOptPortEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "One optical port. rsOptChannels applies to line ports;
+                 rsOptOsnr and rsOptPreFecBer apply to channel ports."
+    INDEX       { rsOptPortIndex }
+    ::= { rsOptPortTable 1 }
+
+RsOptPortEntry ::= SEQUENCE {
+    rsOptPortIndex     Integer32,
+    rsOptPortName      DisplayString,
+    rsOptPortService   DisplayString,
+    rsOptPortRole      INTEGER,
+    rsOptRxPower       Integer32,
+    rsOptTxPower       Integer32,
+    rsOptChannels      Gauge32,
+    rsOptOsnr          Gauge32,
+    rsOptPreFecBer     Gauge32
+}
+
+rsOptPortIndex OBJECT-TYPE
+    SYNTAX      Integer32 (1..2147483647)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Port index; equal to the ifIndex of the port."
+    ::= { rsOptPortEntry 1 }
+
+rsOptPortName OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE (0..32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Port name (ifName)."
+    ::= { rsOptPortEntry 2 }
+
+rsOptPortService OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE (0..128))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Span or circuit carried by the port (ifAlias)."
+    ::= { rsOptPortEntry 3 }
+
+rsOptPortRole OBJECT-TYPE
+    SYNTAX      INTEGER { line(1), channel(2) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "line(1): fiber span (OTS); channel(2): wavelength (OCh)."
+    ::= { rsOptPortEntry 4 }
+
+rsOptRxPower OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 dBm"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Received optical power (-1250 = -12.50 dBm).
+                 -4000 or lower means loss of signal."
+    ::= { rsOptPortEntry 5 }
+
+rsOptTxPower OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 dBm"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Transmitted optical power."
+    ::= { rsOptPortEntry 6 }
+
+rsOptChannels OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Wavelengths present on a line port."
+    ::= { rsOptPortEntry 7 }
+
+rsOptOsnr OBJECT-TYPE
+    SYNTAX      Gauge32
+    UNITS       "0.01 dB"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Optical signal-to-noise ratio of a channel (2210 = 22.10 dB)."
+    ::= { rsOptPortEntry 8 }
+
+rsOptPreFecBer OBJECT-TYPE
+    SYNTAX      Gauge32
+    UNITS       "errored bits per 10^9 bits"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Bit error ratio before forward error correction
+                 (1800 = 1.8E-6). Rising pre-FEC BER warns of a degrading
+                 channel long before post-FEC errors appear."
+    ::= { rsOptPortEntry 9 }
+
+-- ===============================================================
+-- GPON ports of an OLT
+-- ===============================================================
+
+rsPonPortTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF RsPonPortEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Per-PON-port ONU state, ONU optical levels and load."
+    ::= { rsPonObjects 1 }
+
+rsPonPortEntry OBJECT-TYPE
+    SYNTAX      RsPonPortEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "One GPON port (one optical distribution network)."
+    INDEX       { rsPonPortIndex }
+    ::= { rsPonPortTable 1 }
+
+RsPonPortEntry ::= SEQUENCE {
+    rsPonPortIndex         Integer32,
+    rsPonPortName          DisplayString,
+    rsPonOnusRegistered    Gauge32,
+    rsPonOnusOnline        Gauge32,
+    rsPonOnuRxPowerAvg     Integer32,
+    rsPonOnuRxPowerWorst   Integer32,
+    rsPonOltTxPower        Integer32,
+    rsPonDlUtil            Gauge32,
+    rsPonUlUtil            Gauge32
+}
+
+rsPonPortIndex OBJECT-TYPE
+    SYNTAX      Integer32 (1..2147483647)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Port index; equal to the ifIndex of the PON port."
+    ::= { rsPonPortEntry 1 }
+
+rsPonPortName OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE (0..32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "PON port name (ifName), e.g. gpon-0/1/3."
+    ::= { rsPonPortEntry 2 }
+
+rsPonOnusRegistered OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "ONUs provisioned on the port."
+    ::= { rsPonPortEntry 3 }
+
+rsPonOnusOnline OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "ONUs currently ranged and in operation."
+    ::= { rsPonPortEntry 4 }
+
+rsPonOnuRxPowerAvg OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 dBm"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Average downstream power received by the online ONUs."
+    ::= { rsPonPortEntry 5 }
+
+rsPonOnuRxPowerWorst OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 dBm"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Lowest downstream power received by an online ONU.
+                 Class B+ ONUs need at least -28 dBm; operators usually
+                 alarm at -27 dBm."
+    ::= { rsPonPortEntry 6 }
+
+rsPonOltTxPower OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 dBm"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "OLT transmit power on the PON port."
+    ::= { rsPonPortEntry 7 }
+
+rsPonDlUtil OBJECT-TYPE
+    SYNTAX      Gauge32 (0..100)
+    UNITS       "percent"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Downstream utilization of the 2.488 Gbit/s PON."
+    ::= { rsPonPortEntry 8 }
+
+rsPonUlUtil OBJECT-TYPE
+    SYNTAX      Gauge32 (0..100)
+    UNITS       "percent"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Upstream utilization of the 1.244 Gbit/s PON."
+    ::= { rsPonPortEntry 9 }
+
+rsPonDyingGaspCount OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION "ONUs that sent a dying-gasp message (loss of mains power)
+                 within the notification window."
+    ::= { rsPonObjects 2 }
+
+-- ===============================================================
+-- Notifications
+-- ===============================================================
+
+rsLspPathProtected NOTIFICATION-TYPE
+    OBJECTS     { rsLspName, rsLspDestination }
+    STATUS      current
+    DESCRIPTION "The primary path of the LSP failed; traffic is now carried
+                 by the secondary (diverse) path."
+    ::= { rsNetNotificationsPrefix 1 }
+
+rsLspPathRestored NOTIFICATION-TYPE
+    OBJECTS     { rsLspName, rsLspDestination }
+    STATUS      current
+    DESCRIPTION "The LSP is back on its primary path."
+    ::= { rsNetNotificationsPrefix 2 }
+
+rsBgpPeerDown NOTIFICATION-TYPE
+    OBJECTS     { rsBgpPeerName, rsBgpPeerRemoteAddr }
+    STATUS      current
+    DESCRIPTION "A BGP session left the established state."
+    ::= { rsNetNotificationsPrefix 3 }
+
+rsBgpPeerUp NOTIFICATION-TYPE
+    OBJECTS     { rsBgpPeerName, rsBgpPeerRemoteAddr }
+    STATUS      current
+    DESCRIPTION "A BGP session reached the established state."
+    ::= { rsNetNotificationsPrefix 4 }
+
+rsOptLos NOTIFICATION-TYPE
+    OBJECTS     { rsOptPortName, rsOptPortService }
+    STATUS      current
+    DESCRIPTION "Loss of signal on an optical line or channel port."
+    ::= { rsNetNotificationsPrefix 5 }
+
+rsOptLosCleared NOTIFICATION-TYPE
+    OBJECTS     { rsOptPortName, rsOptPortService }
+    STATUS      current
+    DESCRIPTION "Optical signal restored on the port."
+    ::= { rsNetNotificationsPrefix 6 }
+
+rsPonLos NOTIFICATION-TYPE
+    OBJECTS     { rsPonPortName, rsPonOnusOnline }
+    STATUS      current
+    DESCRIPTION "All ONUs of the PON were lost at once without dying-gasp
+                 messages: the feeder fiber or the splitter is the likely
+                 cause."
+    ::= { rsNetNotificationsPrefix 7 }
+
+rsPonLosCleared NOTIFICATION-TYPE
+    OBJECTS     { rsPonPortName, rsPonOnusOnline }
+    STATUS      current
+    DESCRIPTION "ONUs are ranging again on the PON."
+    ::= { rsNetNotificationsPrefix 8 }
+
+rsPonDyingGaspBurst NOTIFICATION-TYPE
+    OBJECTS     { rsPonPortName, rsPonDyingGaspCount, rsPonOnusOnline }
+    STATUS      current
+    DESCRIPTION "Many ONUs of the PON sent dying-gasp messages within a
+                 short window: a commercial power outage in the served
+                 area, not a fiber fault."
+    ::= { rsNetNotificationsPrefix 9 }
+
+rsPonDyingGaspCleared NOTIFICATION-TYPE
+    OBJECTS     { rsPonPortName, rsPonOnusOnline }
+    STATUS      current
+    DESCRIPTION "The ONUs that lost power are back online."
+    ::= { rsNetNotificationsPrefix 10 }
+
+rsPonRxPowerLow NOTIFICATION-TYPE
+    OBJECTS     { rsPonPortName, rsPonOnuRxPowerWorst }
+    STATUS      current
+    DESCRIPTION "ONU receive power on the PON fell below the alarm
+                 threshold: dirty or damaged connector, macro-bend or
+                 splitter degradation. Subscribers will start to lose
+                 service if it keeps dropping."
+    ::= { rsNetNotificationsPrefix 11 }
+
+rsPonRxPowerNormal NOTIFICATION-TYPE
+    OBJECTS     { rsPonPortName, rsPonOnuRxPowerWorst }
+    STATUS      current
+    DESCRIPTION "ONU receive power on the PON is back within limits."
+    ::= { rsNetNotificationsPrefix 12 }
+
+rsBroadcastStorm NOTIFICATION-TYPE
+    OBJECTS     { rsSwPortName, rsSwPortService, rsSwBroadcastRate }
+    STATUS      current
+    DESCRIPTION "Broadcast traffic on the port exceeded the storm-control
+                 threshold (typically a layer-2 loop at the customer site)."
+    ::= { rsNetNotificationsPrefix 13 }
+
+rsBroadcastStormCleared NOTIFICATION-TYPE
+    OBJECTS     { rsSwPortName, rsSwPortService, rsSwBroadcastRate }
+    STATUS      current
+    DESCRIPTION "Broadcast traffic on the port is back below the threshold."
+    ::= { rsNetNotificationsPrefix 14 }
+
+-- ===============================================================
+-- Conformance
+-- ===============================================================
+
+rsNetGroups      OBJECT IDENTIFIER ::= { rsNetConformance 1 }
+rsNetCompliances OBJECT IDENTIFIER ::= { rsNetConformance 2 }
+
+rsChassisGroup OBJECT-GROUP
+    OBJECTS { rsChassisType, rsChassisCpuLoad, rsChassisMemUtil,
+              rsChassisTemperature }
+    STATUS  current
+    DESCRIPTION "Chassis health objects."
+    ::= { rsNetGroups 1 }
+
+rsMplsGroup OBJECT-GROUP
+    OBJECTS { rsLspIndex, rsLspName, rsLspDestination, rsLspOperStatus,
+              rsLspActivePath, rsLspBandwidthUtil, rsLspLatency,
+              rsBgpPeerIndex, rsBgpPeerName, rsBgpPeerRemoteAddr,
+              rsBgpPeerRemoteAs, rsBgpPeerState, rsBgpPeerPrefixesRx }
+    STATUS  current
+    DESCRIPTION "IP/MPLS router objects."
+    ::= { rsNetGroups 2 }
+
+rsSwitchGroup OBJECT-GROUP
+    OBJECTS { rsSwMacEntries, rsSwBroadcastRate, rsSwPortName,
+              rsSwPortService }
+    STATUS  current
+    DESCRIPTION "Ethernet switch objects."
+    ::= { rsNetGroups 3 }
+
+rsOpticalGroup OBJECT-GROUP
+    OBJECTS { rsOptPortIndex, rsOptPortName, rsOptPortService,
+              rsOptPortRole, rsOptRxPower, rsOptTxPower, rsOptChannels,
+              rsOptOsnr, rsOptPreFecBer }
+    STATUS  current
+    DESCRIPTION "DWDM optical port objects."
+    ::= { rsNetGroups 4 }
+
+rsPonGroup OBJECT-GROUP
+    OBJECTS { rsPonPortIndex, rsPonPortName, rsPonOnusRegistered,
+              rsPonOnusOnline, rsPonOnuRxPowerAvg, rsPonOnuRxPowerWorst,
+              rsPonOltTxPower, rsPonDlUtil, rsPonUlUtil,
+              rsPonDyingGaspCount }
+    STATUS  current
+    DESCRIPTION "GPON OLT objects."
+    ::= { rsNetGroups 5 }
+
+rsNetNotificationGroup NOTIFICATION-GROUP
+    NOTIFICATIONS { rsLspPathProtected, rsLspPathRestored,
+                    rsBgpPeerDown, rsBgpPeerUp,
+                    rsOptLos, rsOptLosCleared,
+                    rsPonLos, rsPonLosCleared,
+                    rsPonDyingGaspBurst, rsPonDyingGaspCleared,
+                    rsPonRxPowerLow, rsPonRxPowerNormal,
+                    rsBroadcastStorm, rsBroadcastStormCleared }
+    STATUS  current
+    DESCRIPTION "Notifications sent by the simulated elements."
+    ::= { rsNetGroups 6 }
+
+rsNetCompliance MODULE-COMPLIANCE
+    STATUS  current
+    DESCRIPTION "Compliance statement for the simulated transport and
+                 access elements. Each element implements the chassis
+                 group plus the group of its family."
+    MODULE
+        MANDATORY-GROUPS { rsChassisGroup, rsNetNotificationGroup }
+        GROUP rsMplsGroup
+        DESCRIPTION "Mandatory for IP/MPLS routers."
+        GROUP rsSwitchGroup
+        DESCRIPTION "Mandatory for Ethernet switches."
+        GROUP rsOpticalGroup
+        DESCRIPTION "Mandatory for DWDM elements."
+        GROUP rsPonGroup
+        DESCRIPTION "Mandatory for GPON OLTs."
+    ::= { rsNetCompliances 1 }
+
+END

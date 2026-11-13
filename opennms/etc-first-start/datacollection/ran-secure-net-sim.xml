@@ -1,0 +1,118 @@
+<datacollection-group xmlns="http://xmlns.opennms.org/xsd/config/datacollection" name="RAN-Secure-Net-Sim">
+   <!--
+     RAN-Secure Analytics Platform: performance collection for the simulated transport
+     and access network (IP/MPLS routers, Ethernet switches, DWDM, GPON OLTs).
+     MIB: mibs/RAN-SECURE-NET-SIM-MIB.txt (enterprise 32473, RFC 5612 documentation range)
+     plus standard objects (IF-MIB broadcast/error counters, BRIDGE-MIB STP changes).
+
+     Aliases are at most 19 characters (RRD data source name limit).
+     Optical power values are Integer32 in 0.01 dBm and may be negative.
+
+     Fresh install: imported with datacollection-config.xml on the first start.
+     Existing install: uploaded by scripts/provision.sh (POST /api/v2/datacollectionconf/upload).
+   -->
+   <resourceType name="rsLspEntry" label="MPLS LSP (RAN-SECURE-NET-SIM-MIB)" resourceLabel="${rsLspName}">
+      <persistenceSelectorStrategy class="org.opennms.netmgt.collection.support.PersistAllSelectorStrategy"/>
+      <storageStrategy class="org.opennms.netmgt.collection.support.IndexStorageStrategy"/>
+   </resourceType>
+   <resourceType name="rsBgpPeerEntry" label="BGP Peer (RAN-SECURE-NET-SIM-MIB)" resourceLabel="${rsBgpPeerName}">
+      <persistenceSelectorStrategy class="org.opennms.netmgt.collection.support.PersistAllSelectorStrategy"/>
+      <storageStrategy class="org.opennms.netmgt.collection.support.IndexStorageStrategy"/>
+   </resourceType>
+   <resourceType name="rsOptPortEntry" label="DWDM Optical Port (RAN-SECURE-NET-SIM-MIB)" resourceLabel="${rsOptPortName} - ${rsOptService}">
+      <persistenceSelectorStrategy class="org.opennms.netmgt.collection.support.PersistAllSelectorStrategy"/>
+      <storageStrategy class="org.opennms.netmgt.collection.support.IndexStorageStrategy"/>
+   </resourceType>
+   <resourceType name="rsPonPortEntry" label="GPON Port (RAN-SECURE-NET-SIM-MIB)" resourceLabel="${rsPonPortName}">
+      <persistenceSelectorStrategy class="org.opennms.netmgt.collection.support.PersistAllSelectorStrategy"/>
+      <storageStrategy class="org.opennms.netmgt.collection.support.IndexStorageStrategy"/>
+   </resourceType>
+
+   <!-- Chassis health, all element families -->
+   <group name="rs-chassis" ifType="ignore">
+      <mibObj oid=".1.3.6.1.4.1.32473.7.1.2" instance="0" alias="rsChassisCpuLoad" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.1.3" instance="0" alias="rsChassisMemUtil" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.1.4" instance="0" alias="rsChassisTemp" type="gauge"/>
+   </group>
+
+   <!-- IP/MPLS routers -->
+   <group name="rs-mpls-lsp" ifType="all">
+      <mibObj oid=".1.3.6.1.4.1.32473.7.2.1.1.2" instance="rsLspEntry" alias="rsLspName" type="string"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.2.1.1.3" instance="rsLspEntry" alias="rsLspDest" type="string"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.2.1.1.4" instance="rsLspEntry" alias="rsLspOperStatus" type="integer"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.2.1.1.5" instance="rsLspEntry" alias="rsLspActivePath" type="integer"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.2.1.1.6" instance="rsLspEntry" alias="rsLspBwUtil" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.2.1.1.7" instance="rsLspEntry" alias="rsLspLatency" type="gauge"/>
+   </group>
+   <group name="rs-bgp-peer" ifType="all">
+      <mibObj oid=".1.3.6.1.4.1.32473.7.2.2.1.2" instance="rsBgpPeerEntry" alias="rsBgpPeerName" type="string"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.2.2.1.3" instance="rsBgpPeerEntry" alias="rsBgpPeerAddr" type="string"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.2.2.1.5" instance="rsBgpPeerEntry" alias="rsBgpPeerState" type="integer"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.2.2.1.6" instance="rsBgpPeerEntry" alias="rsBgpPfxRx" type="gauge"/>
+   </group>
+
+   <!-- Ethernet switches -->
+   <group name="rs-switch" ifType="ignore">
+      <mibObj oid=".1.3.6.1.4.1.32473.7.3.1" instance="0" alias="rsSwMacEntries" type="gauge"/>
+      <mibObj oid=".1.3.6.1.2.1.17.2.4" instance="0" alias="dot1dStpTopChanges" type="counter"/>
+   </group>
+   <group name="rs-if-l2" ifType="all">
+      <mibObj oid=".1.3.6.1.2.1.31.1.1.1.9" instance="ifIndex" alias="rsIfInBcastPkts" type="counter"/>
+      <mibObj oid=".1.3.6.1.2.1.31.1.1.1.8" instance="ifIndex" alias="rsIfInMcastPkts" type="counter"/>
+      <mibObj oid=".1.3.6.1.2.1.2.2.1.14" instance="ifIndex" alias="rsIfInErrors" type="counter"/>
+   </group>
+
+   <!-- DWDM optical layer -->
+   <group name="rs-optical" ifType="all">
+      <mibObj oid=".1.3.6.1.4.1.32473.7.4.1.1.2" instance="rsOptPortEntry" alias="rsOptPortName" type="string"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.4.1.1.3" instance="rsOptPortEntry" alias="rsOptService" type="string"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.4.1.1.5" instance="rsOptPortEntry" alias="rsOptRxPower" type="integer"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.4.1.1.6" instance="rsOptPortEntry" alias="rsOptTxPower" type="integer"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.4.1.1.7" instance="rsOptPortEntry" alias="rsOptChannels" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.4.1.1.8" instance="rsOptPortEntry" alias="rsOptOsnr" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.4.1.1.9" instance="rsOptPortEntry" alias="rsOptPreFecBer" type="gauge"/>
+   </group>
+
+   <!-- GPON OLTs -->
+   <group name="rs-pon" ifType="all">
+      <mibObj oid=".1.3.6.1.4.1.32473.7.5.1.1.2" instance="rsPonPortEntry" alias="rsPonPortName" type="string"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.5.1.1.3" instance="rsPonPortEntry" alias="rsPonOnusReg" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.5.1.1.4" instance="rsPonPortEntry" alias="rsPonOnusOnline" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.5.1.1.5" instance="rsPonPortEntry" alias="rsPonRxAvg" type="integer"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.5.1.1.6" instance="rsPonPortEntry" alias="rsPonRxWorst" type="integer"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.5.1.1.7" instance="rsPonPortEntry" alias="rsPonOltTx" type="integer"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.5.1.1.8" instance="rsPonPortEntry" alias="rsPonDlUtil" type="gauge"/>
+      <mibObj oid=".1.3.6.1.4.1.32473.7.5.1.1.9" instance="rsPonPortEntry" alias="rsPonUlUtil" type="gauge"/>
+   </group>
+
+   <systemDef name="RAN-Secure Simulated IP/MPLS Router">
+      <sysoidMask>.1.3.6.1.4.1.32473.7.100.1.</sysoidMask>
+      <collect>
+         <includeGroup>rs-chassis</includeGroup>
+         <includeGroup>rs-mpls-lsp</includeGroup>
+         <includeGroup>rs-bgp-peer</includeGroup>
+      </collect>
+   </systemDef>
+   <systemDef name="RAN-Secure Simulated Ethernet Switch">
+      <sysoidMask>.1.3.6.1.4.1.32473.7.100.2.</sysoidMask>
+      <collect>
+         <includeGroup>rs-chassis</includeGroup>
+         <includeGroup>rs-switch</includeGroup>
+         <includeGroup>rs-if-l2</includeGroup>
+      </collect>
+   </systemDef>
+   <systemDef name="RAN-Secure Simulated DWDM Element">
+      <sysoidMask>.1.3.6.1.4.1.32473.7.100.3.</sysoidMask>
+      <collect>
+         <includeGroup>rs-chassis</includeGroup>
+         <includeGroup>rs-optical</includeGroup>
+      </collect>
+   </systemDef>
+   <systemDef name="RAN-Secure Simulated GPON OLT">
+      <sysoidMask>.1.3.6.1.4.1.32473.7.100.4.</sysoidMask>
+      <collect>
+         <includeGroup>rs-chassis</includeGroup>
+         <includeGroup>rs-pon</includeGroup>
+      </collect>
+   </systemDef>
+</datacollection-group>

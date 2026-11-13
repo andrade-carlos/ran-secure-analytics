@@ -19,11 +19,15 @@ Status legend: ✅ done · 🔄 in progress · ⏳ planned
 | 1.10 | Thresholds (PRB > 80 %, RRC SR < 99 %, drop rate > 0.5 %) generating alarms | ⏳ |
 | 1.11 | Project website / landing page with demo request form | ⏳ |
 | 1.12 | Time-limited demo accounts (14–30 days) for prospective operators | ⏳ |
+| 1.13 | Simulated transport and access network: IP/MPLS core, Ethernet aggregation/access, DWDM optical layer, GPON OLTs (`RAN-SECURE-NET-SIM-MIB`) | ✅ |
+| 1.14 | End-to-end topology map from LLDP (radio site to Internet gateway) — verify on the cloud server | 🔄 |
+| 1.15 | Transport/access scenarios: DWDM fiber cut with MPLS protection, BGP transit loss, broadcast storm, FTTH power outage vs. PON fiber cut, ONU power degradation — verify alarms on the cloud server | 🔄 |
+| 1.16 | Grafana dashboards for transport and access ("Core & Optical", "FTTH Access") exported as code | ⏳ |
 
 ## Phase 2 – Client outreach and pilot testing (months 6–12)
 
 * Outreach to U.S. WISPs, rural cooperatives and municipal networks (WISPA, NTCA, LinkedIn groups).
-* Tailored demos with each prospect's element types and KPIs.
+* Tailored demos with each prospect's element types and KPIs (RAN, IP/MPLS, DWDM, GPON or a mix).
 * Letters of Interest from participating providers (target: 3–5).
 * Minion-based collection from a pilot network (outbound-only connectivity).
 * Measured sizing and performance figures replacing the planning estimates.

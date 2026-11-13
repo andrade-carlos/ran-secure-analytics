@@ -4,63 +4,207 @@
     "ip": "172.30.0.11",
     "kind": "gNodeB",
     "location": "Site 101 - Urban macro (simulated)",
+    "categories": [
+      "RAN",
+      "5G-NR"
+    ],
     "cells": [
       "NR-101-A",
       "NR-101-B",
       "NR-101-C"
     ],
-    "oids": 91
+    "oids": 111
   },
   {
     "name": "gnb-site-102",
     "ip": "172.30.0.12",
     "kind": "gNodeB",
     "location": "Site 102 - Suburban macro (simulated)",
+    "categories": [
+      "RAN",
+      "5G-NR"
+    ],
     "cells": [
       "NR-102-A",
       "NR-102-B",
       "NR-102-C"
     ],
-    "oids": 91
+    "oids": 111
   },
   {
     "name": "enb-rural-201",
     "ip": "172.30.0.21",
     "kind": "eNodeB",
     "location": "Site 201 - Rural coverage (simulated)",
+    "categories": [
+      "RAN",
+      "4G-LTE"
+    ],
     "cells": [
       "LTE-201-A",
       "LTE-201-B",
       "LTE-201-C"
     ],
-    "oids": 76
+    "oids": 93
   },
   {
     "name": "enb-rural-202",
     "ip": "172.30.0.22",
     "kind": "eNodeB",
     "location": "Site 202 - Rural coverage (simulated)",
+    "categories": [
+      "RAN",
+      "4G-LTE"
+    ],
     "cells": [
       "LTE-202-A",
       "LTE-202-B",
       "LTE-202-C"
     ],
-    "oids": 76
+    "oids": 93
   },
   {
     "name": "csr-hub-01",
     "ip": "172.30.0.31",
     "kind": "CellSiteRouter",
     "location": "Hub 01 - Cell site aggregation (simulated)",
+    "categories": [
+      "Transport",
+      "Backhaul"
+    ],
     "cells": [],
-    "oids": 101
+    "oids": 158
   },
   {
     "name": "agg-core-01",
     "ip": "172.30.0.41",
     "kind": "AggregationRouter",
     "location": "Core POP - Backhaul aggregation (simulated)",
+    "categories": [
+      "Transport",
+      "Core"
+    ],
     "cells": [],
-    "oids": 56
+    "oids": 83
+  },
+  {
+    "name": "pe-core-01",
+    "ip": "172.30.0.51",
+    "kind": "PERouter",
+    "location": "Core POP A - IP/MPLS provider edge (simulated)",
+    "categories": [
+      "Transport",
+      "IP-MPLS"
+    ],
+    "cells": [],
+    "oids": 183
+  },
+  {
+    "name": "p-core-01",
+    "ip": "172.30.0.52",
+    "kind": "PRouter",
+    "location": "Core POP B - IP/MPLS core (simulated)",
+    "categories": [
+      "Transport",
+      "IP-MPLS"
+    ],
+    "cells": [],
+    "oids": 108
+  },
+  {
+    "name": "pe-core-02",
+    "ip": "172.30.0.53",
+    "kind": "PERouter",
+    "location": "Core POP B - IP/MPLS provider edge and Internet gateway (simulated)",
+    "categories": [
+      "Transport",
+      "IP-MPLS"
+    ],
+    "cells": [],
+    "oids": 208
+  },
+  {
+    "name": "sw-agg-01",
+    "ip": "172.30.0.61",
+    "kind": "AggSwitch",
+    "location": "Core POP B - Metro aggregation (simulated)",
+    "categories": [
+      "Transport",
+      "Switching"
+    ],
+    "cells": [],
+    "oids": 186
+  },
+  {
+    "name": "sw-access-01",
+    "ip": "172.30.0.62",
+    "kind": "AccessSwitch",
+    "location": "Business park street cabinet - enterprise access (simulated)",
+    "categories": [
+      "Transport",
+      "Switching"
+    ],
+    "cells": [],
+    "oids": 192
+  },
+  {
+    "name": "roadm-01",
+    "ip": "172.30.0.71",
+    "kind": "ROADM",
+    "location": "Core POP A - DWDM terminal (simulated)",
+    "categories": [
+      "Transport",
+      "DWDM"
+    ],
+    "cells": [],
+    "oids": 138
+  },
+  {
+    "name": "ila-01",
+    "ip": "172.30.0.72",
+    "kind": "ILA",
+    "location": "In-line amplifier hut, km 62 (simulated)",
+    "categories": [
+      "Transport",
+      "DWDM"
+    ],
+    "cells": [],
+    "oids": 100
+  },
+  {
+    "name": "roadm-02",
+    "ip": "172.30.0.73",
+    "kind": "ROADM",
+    "location": "Core POP B - DWDM terminal (simulated)",
+    "categories": [
+      "Transport",
+      "DWDM"
+    ],
+    "cells": [],
+    "oids": 138
+  },
+  {
+    "name": "olt-town-01",
+    "ip": "172.30.0.81",
+    "kind": "OLT",
+    "location": "Town central office - FTTH (simulated)",
+    "categories": [
+      "Access",
+      "GPON"
+    ],
+    "cells": [],
+    "oids": 348
+  },
+  {
+    "name": "olt-rural-02",
+    "ip": "172.30.0.82",
+    "kind": "OLT",
+    "location": "Rural exchange - FTTH (simulated)",
+    "categories": [
+      "Access",
+      "GPON"
+    ],
+    "cells": [],
+    "oids": 212
   }
 ]

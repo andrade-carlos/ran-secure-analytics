@@ -1,7 +1,8 @@
 <!--
   RAN-Secure Analytics Platform: surveillance view used by the OpenNMS Dashboard
   (Dashboards > Dashboard). Replaces the stock Routers/Switches/Servers x PROD/TEST/DEV
-  grid with the simulated RAN, using the node categories from the RAN-Sim requisition.
+  grid with the simulated network - RAN, transport (IP/MPLS, DWDM, Ethernet) and
+  GPON access - using the node categories from the RAN-Sim requisition.
   The Dashboard only lists alarms, outages and notifications for nodes in this view.
 -->
 <surveillance-view-configuration xmlns="http://xmlns.opennms.org/xsd/config/surveillance-views" default-view="default">
@@ -20,11 +21,24 @@
             <row-def label="Core aggregation">
                <category name="Core"/>
             </row-def>
+            <row-def label="IP/MPLS core (PE / P routers)">
+               <category name="IP-MPLS"/>
+            </row-def>
+            <row-def label="DWDM optical transport">
+               <category name="DWDM"/>
+            </row-def>
+            <row-def label="Ethernet aggregation and access">
+               <category name="Switching"/>
+            </row-def>
+            <row-def label="GPON / FTTH access (OLTs)">
+               <category name="GPON"/>
+            </row-def>
          </rows>
          <columns>
             <column-def label="RAN-Sim network">
                <category name="RAN"/>
                <category name="Transport"/>
+               <category name="Access"/>
             </column-def>
          </columns>
       </view>
