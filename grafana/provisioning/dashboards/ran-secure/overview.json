@@ -1,0 +1,1470 @@
+{
+  "uid": "rs-overview",
+  "title": "RAN-Secure - Network Overview",
+  "description": "End-to-end status of the simulated operator network",
+  "tags": [
+    "ran-secure"
+  ],
+  "editable": true,
+  "graphTooltip": 1,
+  "refresh": "1m",
+  "schemaVersion": 39,
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "templating": {
+    "list": [
+      {
+        "name": "ds_perf",
+        "label": "Performance datasource",
+        "type": "datasource",
+        "query": "opennms-performance-datasource",
+        "hide": 2,
+        "current": {},
+        "options": [],
+        "refresh": 1,
+        "regex": "",
+        "includeAll": false,
+        "multi": false
+      },
+      {
+        "name": "ds_entity",
+        "label": "Entity datasource",
+        "type": "datasource",
+        "query": "opennms-entity-datasource",
+        "hide": 2,
+        "current": {},
+        "options": [],
+        "refresh": 1,
+        "regex": "",
+        "includeAll": false,
+        "multi": false
+      }
+    ]
+  },
+  "links": [
+    {
+      "type": "dashboards",
+      "tags": [
+        "ran-secure"
+      ],
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "title": "RAN-Secure",
+      "icon": "external link"
+    }
+  ],
+  "panels": [
+    {
+      "type": "text",
+      "title": "RAN-Secure Analytics Platform",
+      "options": {
+        "mode": "markdown",
+        "content": "**Simulated end-to-end network of a small operator** monitored with open-source tools (OpenNMS Horizon + Grafana): 4G/5G RAN, IP/MPLS core, DWDM optical transport, Ethernet aggregation and GPON/FTTH access. Use the links at the top for each domain. All elements are simulated; no customer network is involved."
+      },
+      "id": 1,
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "FTTH subscribers online",
+      "description": "ONUs in operation on all PONs of both OLTs.",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[3]",
+              "label": "rsPonPortEntry[3]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t1"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[4]",
+              "label": "rsPonPortEntry[4]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t2"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[5]",
+              "label": "rsPonPortEntry[5]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t3"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[6]",
+              "label": "rsPonPortEntry[6]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t4"
+          }
+        },
+        {
+          "refId": "E",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[7]",
+              "label": "rsPonPortEntry[7]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t5"
+          }
+        },
+        {
+          "refId": "F",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[8]",
+              "label": "rsPonPortEntry[8]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t6"
+          }
+        },
+        {
+          "refId": "G",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[9]",
+              "label": "rsPonPortEntry[9]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t7"
+          }
+        },
+        {
+          "refId": "H",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[10]",
+              "label": "rsPonPortEntry[10]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t8"
+          }
+        },
+        {
+          "refId": "I",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[3]",
+              "label": "rsPonPortEntry[3]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t9"
+          }
+        },
+        {
+          "refId": "J",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[4]",
+              "label": "rsPonPortEntry[4]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t10"
+          }
+        },
+        {
+          "refId": "K",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[5]",
+              "label": "rsPonPortEntry[5]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t11"
+          }
+        },
+        {
+          "refId": "L",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[6]",
+              "label": "rsPonPortEntry[6]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t12"
+          }
+        },
+        {
+          "refId": "M",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "ONUs online",
+          "expression": "t1 + t2 + t3 + t4 + t5 + t6 + t7 + t8 + t9 + t10 + t11 + t12"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "mappings": [],
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "area",
+        "textMode": "auto",
+        "justifyMode": "auto",
+        "orientation": "auto"
+      },
+      "id": 2,
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 3
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Internet transit (BGP)",
+      "description": "BGP session to the upstream transit provider on pe-core-02.",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:pe-core-02",
+              "label": "pe-core-02"
+            },
+            "resource": {
+              "id": "rsBgpPeerEntry[1]",
+              "label": "rsBgpPeerEntry[1]"
+            },
+            "attribute": {
+              "name": "rsBgpPeerState"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "Transit-A"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 6
+              }
+            ]
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "6": {
+                  "text": "Established",
+                  "color": "green",
+                  "index": 0
+                },
+                "1": {
+                  "text": "Down (idle)",
+                  "color": "red",
+                  "index": 1
+                },
+                "3": {
+                  "text": "Active",
+                  "color": "orange",
+                  "index": 2
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "auto",
+        "orientation": "auto"
+      },
+      "id": 3,
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 4,
+        "y": 3
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Core LSP path",
+      "description": "Active path of the GOLD LSP between the two core POPs.",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:pe-core-01",
+              "label": "pe-core-01"
+            },
+            "resource": {
+              "id": "rsLspEntry[1]",
+              "label": "rsLspEntry[1]"
+            },
+            "attribute": {
+              "name": "rsLspActivePath"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "LSP-PE1-PE2-GOLD"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 2
+              }
+            ]
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "1": {
+                  "text": "Primary",
+                  "color": "green",
+                  "index": 0
+                },
+                "2": {
+                  "text": "Protected (secondary)",
+                  "color": "orange",
+                  "index": 1
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "auto",
+        "justifyMode": "auto",
+        "orientation": "auto"
+      },
+      "id": 4,
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 8,
+        "y": 3
+      }
+    },
+    {
+      "type": "stat",
+      "title": "DWDM span 2 Rx power",
+      "description": "Received power at roadm-02 LINE-W. Below -30 dBm = loss of signal.",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:roadm-02",
+              "label": "roadm-02"
+            },
+            "resource": {
+              "id": "rsOptPortEntry[2]",
+              "label": "rsOptPortEntry[2]"
+            },
+            "attribute": {
+              "name": "rsOptRxPower"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v1"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "Rx",
+          "expression": "v1 * 0.01"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix: dBm",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": -30
+              }
+            ]
+          },
+          "mappings": [],
+          "decimals": 2
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "area",
+        "textMode": "auto",
+        "justifyMode": "auto",
+        "orientation": "auto"
+      },
+      "id": 5,
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 12,
+        "y": 3
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Enterprise access switch CPU",
+      "description": "sw-access-01 control-plane CPU.",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:sw-access-01",
+              "label": "sw-access-01"
+            },
+            "resource": {
+              "id": "nodeSnmp[]",
+              "label": "nodeSnmp[]"
+            },
+            "attribute": {
+              "name": "rsChassisCpuLoad"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "CPU"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "mappings": [],
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "area",
+        "textMode": "auto",
+        "justifyMode": "auto",
+        "orientation": "auto"
+      },
+      "id": 6,
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 16,
+        "y": 3
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Mobile users connected",
+      "description": "RRC-connected UEs on all 4G/5G sites.",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:gnb-site-101",
+              "label": "gnb-site-101"
+            },
+            "resource": {
+              "id": "nodeSnmp[]",
+              "label": "nodeSnmp[]"
+            },
+            "attribute": {
+              "name": "ranNodeUEs"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t1"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:gnb-site-102",
+              "label": "gnb-site-102"
+            },
+            "resource": {
+              "id": "nodeSnmp[]",
+              "label": "nodeSnmp[]"
+            },
+            "attribute": {
+              "name": "ranNodeUEs"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t2"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:enb-rural-201",
+              "label": "enb-rural-201"
+            },
+            "resource": {
+              "id": "nodeSnmp[]",
+              "label": "nodeSnmp[]"
+            },
+            "attribute": {
+              "name": "ranNodeUEs"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t3"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:enb-rural-202",
+              "label": "enb-rural-202"
+            },
+            "resource": {
+              "id": "nodeSnmp[]",
+              "label": "nodeSnmp[]"
+            },
+            "attribute": {
+              "name": "ranNodeUEs"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t4"
+          }
+        },
+        {
+          "refId": "E",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "UEs",
+          "expression": "t1 + t2 + t3 + t4"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "mappings": [],
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "area",
+        "textMode": "auto",
+        "justifyMode": "auto",
+        "orientation": "auto"
+      },
+      "id": 7,
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 3
+      }
+    },
+    {
+      "type": "opennms-alarm-table-panel",
+      "title": "Active alarms - all domains",
+      "description": "Alarms that are not cleared, newest first. Acknowledge or clear from the row menu.",
+      "datasource": {
+        "type": "opennms-entity-datasource",
+        "uid": "${ds_entity}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-entity-datasource",
+            "uid": "${ds_entity}"
+          },
+          "selectType": {
+            "label": "Alarms"
+          },
+          "filter": {
+            "limit": 100,
+            "clauses": [
+              {
+                "restriction": {
+                  "attribute": "severity",
+                  "comparator": {
+                    "label": "NE"
+                  },
+                  "value": "CLEARED"
+                },
+                "operator": {
+                  "label": "AND"
+                }
+              }
+            ],
+            "orderBy": [
+              {
+                "attribute": "lastEventTime",
+                "order": {
+                  "label": "DESC"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "alarmTable": {
+          "alarmTableAdditional": {
+            "displayActionNotice": true,
+            "useGrafanaUser": false
+          },
+          "alarmTableAlarms": {
+            "styleWithSeverity": {
+              "label": "Column",
+              "value": 1
+            },
+            "severityTheme": {
+              "label": "Default",
+              "value": 0
+            }
+          },
+          "alarmTableData": {
+            "columns": [
+              {
+                "label": "Severity",
+                "value": 5
+              },
+              {
+                "label": "Is Acknowledged",
+                "value": 20
+              },
+              {
+                "label": "Count",
+                "value": 1
+              },
+              {
+                "label": "Last Event Time",
+                "value": 23
+              },
+              {
+                "label": "Node Label",
+                "value": 14
+              },
+              {
+                "label": "Log Message",
+                "value": 9
+              }
+            ]
+          },
+          "alarmTablePaging": {
+            "pauseRefresh": false,
+            "scroll": true,
+            "rowsPerPage": 10,
+            "fontSize": {
+              "label": "100%",
+              "value": 2
+            }
+          },
+          "alarmTableColumnSizes": {
+            "active": false,
+            "columnSizes": []
+          }
+        }
+      },
+      "id": 8,
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Internet transit traffic (pe-core-02 et-0/2/0)",
+      "description": "",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:pe-core-02",
+              "label": "pe-core-02"
+            },
+            "resource": {
+              "id": "interfaceSnmp[et_0_2_0-02a0c9090501]",
+              "label": "interfaceSnmp[et_0_2_0-02a0c9090501]"
+            },
+            "attribute": {
+              "name": "ifHCInOctets"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v1"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "Transit-A in",
+          "expression": "v1 * 8"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:pe-core-02",
+              "label": "pe-core-02"
+            },
+            "resource": {
+              "id": "interfaceSnmp[et_0_2_0-02a0c9090501]",
+              "label": "interfaceSnmp[et_0_2_0-02a0c9090501]"
+            },
+            "attribute": {
+              "name": "ifHCOutOctets"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v3"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "Transit-A out",
+          "expression": "v3 * 8"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": true,
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "id": 9,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Mobile backhaul into the core (pe-core-01 xe-0/0/0)",
+      "description": "",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:pe-core-01",
+              "label": "pe-core-01"
+            },
+            "resource": {
+              "id": "interfaceSnmp[xe_0_0_0-02a0c9070201]",
+              "label": "interfaceSnmp[xe_0_0_0-02a0c9070201]"
+            },
+            "attribute": {
+              "name": "ifHCInOctets"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v1"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "Mobile backhaul in",
+          "expression": "v1 * 8"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:pe-core-01",
+              "label": "pe-core-01"
+            },
+            "resource": {
+              "id": "interfaceSnmp[xe_0_0_0-02a0c9070201]",
+              "label": "interfaceSnmp[xe_0_0_0-02a0c9070201]"
+            },
+            "attribute": {
+              "name": "ifHCOutOctets"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v3"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "Mobile backhaul out",
+          "expression": "v3 * 8"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": true,
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "id": 10,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 17
+      }
+    }
+  ],
+  "annotations": {
+    "list": []
+  }
+}

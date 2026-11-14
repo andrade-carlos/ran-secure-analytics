@@ -1,0 +1,3095 @@
+{
+  "uid": "rs-ftth",
+  "title": "RAN-Secure - FTTH / GPON Access",
+  "description": "ONUs online, ONU optical levels and PON load per OLT",
+  "tags": [
+    "ran-secure"
+  ],
+  "editable": true,
+  "graphTooltip": 1,
+  "refresh": "1m",
+  "schemaVersion": 39,
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "templating": {
+    "list": [
+      {
+        "name": "ds_perf",
+        "label": "Performance datasource",
+        "type": "datasource",
+        "query": "opennms-performance-datasource",
+        "hide": 2,
+        "current": {},
+        "options": [],
+        "refresh": 1,
+        "regex": "",
+        "includeAll": false,
+        "multi": false
+      },
+      {
+        "name": "ds_entity",
+        "label": "Entity datasource",
+        "type": "datasource",
+        "query": "opennms-entity-datasource",
+        "hide": 2,
+        "current": {},
+        "options": [],
+        "refresh": 1,
+        "regex": "",
+        "includeAll": false,
+        "multi": false
+      }
+    ]
+  },
+  "links": [
+    {
+      "type": "dashboards",
+      "tags": [
+        "ran-secure"
+      ],
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "title": "RAN-Secure",
+      "icon": "external link"
+    }
+  ],
+  "panels": [
+    {
+      "type": "stat",
+      "title": "olt-town-01: ONUs online (of 396)",
+      "description": "",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[3]",
+              "label": "rsPonPortEntry[3]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t1"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[4]",
+              "label": "rsPonPortEntry[4]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t2"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[5]",
+              "label": "rsPonPortEntry[5]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t3"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[6]",
+              "label": "rsPonPortEntry[6]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t4"
+          }
+        },
+        {
+          "refId": "E",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[7]",
+              "label": "rsPonPortEntry[7]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t5"
+          }
+        },
+        {
+          "refId": "F",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[8]",
+              "label": "rsPonPortEntry[8]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t6"
+          }
+        },
+        {
+          "refId": "G",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[9]",
+              "label": "rsPonPortEntry[9]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t7"
+          }
+        },
+        {
+          "refId": "H",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[10]",
+              "label": "rsPonPortEntry[10]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t8"
+          }
+        },
+        {
+          "refId": "I",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "Online",
+          "expression": "t1 + t2 + t3 + t4 + t5 + t6 + t7 + t8"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 356.40000000000003
+              },
+              {
+                "color": "green",
+                "value": 384.12
+              }
+            ]
+          },
+          "mappings": [],
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "area",
+        "textMode": "auto",
+        "justifyMode": "auto",
+        "orientation": "auto"
+      },
+      "id": 1,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "olt-town-01 uplink traffic",
+      "description": "",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "interfaceSnmp[xgei_0_9_1-02a0c90f0201]",
+              "label": "interfaceSnmp[xgei_0_9_1-02a0c90f0201]"
+            },
+            "attribute": {
+              "name": "ifHCInOctets"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v1"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "Uplink in",
+          "expression": "v1 * 8"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "interfaceSnmp[xgei_0_9_1-02a0c90f0201]",
+              "label": "interfaceSnmp[xgei_0_9_1-02a0c90f0201]"
+            },
+            "attribute": {
+              "name": "ifHCOutOctets"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v3"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "Uplink out",
+          "expression": "v3 * 8"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 5,
+            "showPoints": "never",
+            "spanNulls": true,
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "id": 2,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "olt-rural-02: ONUs online (of 100)",
+      "description": "",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[3]",
+              "label": "rsPonPortEntry[3]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t1"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[4]",
+              "label": "rsPonPortEntry[4]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t2"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[5]",
+              "label": "rsPonPortEntry[5]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t3"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[6]",
+              "label": "rsPonPortEntry[6]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "t4"
+          }
+        },
+        {
+          "refId": "E",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "Online",
+          "expression": "t1 + t2 + t3 + t4"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 90.0
+              },
+              {
+                "color": "green",
+                "value": 97.0
+              }
+            ]
+          },
+          "mappings": [],
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "area",
+        "textMode": "auto",
+        "justifyMode": "auto",
+        "orientation": "auto"
+      },
+      "id": 3,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "olt-rural-02 uplink traffic",
+      "description": "",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "interfaceSnmp[xgei_0_9_1-02a0c9100201]",
+              "label": "interfaceSnmp[xgei_0_9_1-02a0c9100201]"
+            },
+            "attribute": {
+              "name": "ifHCInOctets"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v1"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "Uplink in",
+          "expression": "v1 * 8"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "interfaceSnmp[xgei_0_9_1-02a0c9100201]",
+              "label": "interfaceSnmp[xgei_0_9_1-02a0c9100201]"
+            },
+            "attribute": {
+              "name": "ifHCOutOctets"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v3"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "Uplink out",
+          "expression": "v3 * 8"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 5,
+            "showPoints": "never",
+            "spanNulls": true,
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "id": 4,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      }
+    },
+    {
+      "type": "row",
+      "title": "olt-town-01 - Town central office - FTTH",
+      "id": 5,
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "panels": []
+    },
+    {
+      "type": "timeseries",
+      "title": "ONUs online per PON",
+      "description": "A sudden drop with dying gasp = power outage; without = fiber cut.",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[3]",
+              "label": "rsPonPortEntry[3]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/1 Zone A - Downtown"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[4]",
+              "label": "rsPonPortEntry[4]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/2 Zone B - Riverside"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[5]",
+              "label": "rsPonPortEntry[5]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/3 Zone C - Hillcrest"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[6]",
+              "label": "rsPonPortEntry[6]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/4 Zone D - Oak Park"
+          }
+        },
+        {
+          "refId": "E",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[7]",
+              "label": "rsPonPortEntry[7]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/5 Zone E - Westgate"
+          }
+        },
+        {
+          "refId": "F",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[8]",
+              "label": "rsPonPortEntry[8]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/6 Zone F - Lakeview"
+          }
+        },
+        {
+          "refId": "G",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[9]",
+              "label": "rsPonPortEntry[9]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/7 Zone G - Industrial park"
+          }
+        },
+        {
+          "refId": "H",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[10]",
+              "label": "rsPonPortEntry[10]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/8 Zone H - Northfield"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 0,
+            "showPoints": "never",
+            "spanNulls": true,
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              }
+            ]
+          },
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "id": 6,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Worst ONU receive power per PON",
+      "description": "Alarm threshold -27 dBm; class B+ ONUs stop working near -28 dBm.",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[3]",
+              "label": "rsPonPortEntry[3]"
+            },
+            "attribute": {
+              "name": "rsPonRxWorst"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v1"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/1 Zone A - Downtown",
+          "expression": "v1 * 0.01"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[4]",
+              "label": "rsPonPortEntry[4]"
+            },
+            "attribute": {
+              "name": "rsPonRxWorst"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v3"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/2 Zone B - Riverside",
+          "expression": "v3 * 0.01"
+        },
+        {
+          "refId": "E",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[5]",
+              "label": "rsPonPortEntry[5]"
+            },
+            "attribute": {
+              "name": "rsPonRxWorst"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v5"
+          }
+        },
+        {
+          "refId": "F",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/3 Zone C - Hillcrest",
+          "expression": "v5 * 0.01"
+        },
+        {
+          "refId": "G",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[6]",
+              "label": "rsPonPortEntry[6]"
+            },
+            "attribute": {
+              "name": "rsPonRxWorst"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v7"
+          }
+        },
+        {
+          "refId": "H",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/4 Zone D - Oak Park",
+          "expression": "v7 * 0.01"
+        },
+        {
+          "refId": "I",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[7]",
+              "label": "rsPonPortEntry[7]"
+            },
+            "attribute": {
+              "name": "rsPonRxWorst"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v9"
+          }
+        },
+        {
+          "refId": "J",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/5 Zone E - Westgate",
+          "expression": "v9 * 0.01"
+        },
+        {
+          "refId": "K",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[8]",
+              "label": "rsPonPortEntry[8]"
+            },
+            "attribute": {
+              "name": "rsPonRxWorst"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v11"
+          }
+        },
+        {
+          "refId": "L",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/6 Zone F - Lakeview",
+          "expression": "v11 * 0.01"
+        },
+        {
+          "refId": "M",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[9]",
+              "label": "rsPonPortEntry[9]"
+            },
+            "attribute": {
+              "name": "rsPonRxWorst"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v13"
+          }
+        },
+        {
+          "refId": "N",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/7 Zone G - Industrial park",
+          "expression": "v13 * 0.01"
+        },
+        {
+          "refId": "O",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[10]",
+              "label": "rsPonPortEntry[10]"
+            },
+            "attribute": {
+              "name": "rsPonRxWorst"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v15"
+          }
+        },
+        {
+          "refId": "P",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/8 Zone H - Northfield",
+          "expression": "v15 * 0.01"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix: dBm",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 0,
+            "showPoints": "never",
+            "spanNulls": true,
+            "thresholdsStyle": {
+              "mode": "line+area"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": -28
+              },
+              {
+                "color": "transparent",
+                "value": -27
+              }
+            ]
+          },
+          "min": -32,
+          "max": -15,
+          "decimals": 2
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "id": 7,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Downstream PON utilization",
+      "description": "Capacity planning threshold 70 %.",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[3]",
+              "label": "rsPonPortEntry[3]"
+            },
+            "attribute": {
+              "name": "rsPonDlUtil"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/1 Zone A - Downtown"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[4]",
+              "label": "rsPonPortEntry[4]"
+            },
+            "attribute": {
+              "name": "rsPonDlUtil"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/2 Zone B - Riverside"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[5]",
+              "label": "rsPonPortEntry[5]"
+            },
+            "attribute": {
+              "name": "rsPonDlUtil"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/3 Zone C - Hillcrest"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[6]",
+              "label": "rsPonPortEntry[6]"
+            },
+            "attribute": {
+              "name": "rsPonDlUtil"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/4 Zone D - Oak Park"
+          }
+        },
+        {
+          "refId": "E",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[7]",
+              "label": "rsPonPortEntry[7]"
+            },
+            "attribute": {
+              "name": "rsPonDlUtil"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/5 Zone E - Westgate"
+          }
+        },
+        {
+          "refId": "F",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[8]",
+              "label": "rsPonPortEntry[8]"
+            },
+            "attribute": {
+              "name": "rsPonDlUtil"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/6 Zone F - Lakeview"
+          }
+        },
+        {
+          "refId": "G",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[9]",
+              "label": "rsPonPortEntry[9]"
+            },
+            "attribute": {
+              "name": "rsPonDlUtil"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/7 Zone G - Industrial park"
+          }
+        },
+        {
+          "refId": "H",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[10]",
+              "label": "rsPonPortEntry[10]"
+            },
+            "attribute": {
+              "name": "rsPonDlUtil"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/8 Zone H - Northfield"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 0,
+            "showPoints": "never",
+            "spanNulls": true,
+            "thresholdsStyle": {
+              "mode": "line+area"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 70
+              }
+            ]
+          },
+          "min": 0,
+          "max": 100
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "id": 8,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 15
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Average ONU receive power per PON",
+      "description": "",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[3]",
+              "label": "rsPonPortEntry[3]"
+            },
+            "attribute": {
+              "name": "rsPonRxAvg"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v1"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/1 Zone A - Downtown",
+          "expression": "v1 * 0.01"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[4]",
+              "label": "rsPonPortEntry[4]"
+            },
+            "attribute": {
+              "name": "rsPonRxAvg"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v3"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/2 Zone B - Riverside",
+          "expression": "v3 * 0.01"
+        },
+        {
+          "refId": "E",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[5]",
+              "label": "rsPonPortEntry[5]"
+            },
+            "attribute": {
+              "name": "rsPonRxAvg"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v5"
+          }
+        },
+        {
+          "refId": "F",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/3 Zone C - Hillcrest",
+          "expression": "v5 * 0.01"
+        },
+        {
+          "refId": "G",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[6]",
+              "label": "rsPonPortEntry[6]"
+            },
+            "attribute": {
+              "name": "rsPonRxAvg"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v7"
+          }
+        },
+        {
+          "refId": "H",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/4 Zone D - Oak Park",
+          "expression": "v7 * 0.01"
+        },
+        {
+          "refId": "I",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[7]",
+              "label": "rsPonPortEntry[7]"
+            },
+            "attribute": {
+              "name": "rsPonRxAvg"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v9"
+          }
+        },
+        {
+          "refId": "J",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/5 Zone E - Westgate",
+          "expression": "v9 * 0.01"
+        },
+        {
+          "refId": "K",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[8]",
+              "label": "rsPonPortEntry[8]"
+            },
+            "attribute": {
+              "name": "rsPonRxAvg"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v11"
+          }
+        },
+        {
+          "refId": "L",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/6 Zone F - Lakeview",
+          "expression": "v11 * 0.01"
+        },
+        {
+          "refId": "M",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[9]",
+              "label": "rsPonPortEntry[9]"
+            },
+            "attribute": {
+              "name": "rsPonRxAvg"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v13"
+          }
+        },
+        {
+          "refId": "N",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/7 Zone G - Industrial park",
+          "expression": "v13 * 0.01"
+        },
+        {
+          "refId": "O",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-town-01",
+              "label": "olt-town-01"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[10]",
+              "label": "rsPonPortEntry[10]"
+            },
+            "attribute": {
+              "name": "rsPonRxAvg"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v15"
+          }
+        },
+        {
+          "refId": "P",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/8 Zone H - Northfield",
+          "expression": "v15 * 0.01"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix: dBm",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 0,
+            "showPoints": "never",
+            "spanNulls": true,
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              }
+            ]
+          },
+          "decimals": 2
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "id": 9,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 15
+      }
+    },
+    {
+      "type": "row",
+      "title": "olt-rural-02 - Rural exchange - FTTH",
+      "id": 10,
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "panels": []
+    },
+    {
+      "type": "timeseries",
+      "title": "ONUs online per PON",
+      "description": "A sudden drop with dying gasp = power outage; without = fiber cut.",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[3]",
+              "label": "rsPonPortEntry[3]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/1 Rural route - Mill Creek"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[4]",
+              "label": "rsPonPortEntry[4]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/2 Rural route - Pine Valley"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[5]",
+              "label": "rsPonPortEntry[5]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/3 Rural route - Cedar Ridge"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[6]",
+              "label": "rsPonPortEntry[6]"
+            },
+            "attribute": {
+              "name": "rsPonOnusOnline"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/4 Rural route - Fox Hollow"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 0,
+            "showPoints": "never",
+            "spanNulls": true,
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              }
+            ]
+          },
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "id": 11,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Worst ONU receive power per PON",
+      "description": "Alarm threshold -27 dBm; class B+ ONUs stop working near -28 dBm.",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[3]",
+              "label": "rsPonPortEntry[3]"
+            },
+            "attribute": {
+              "name": "rsPonRxWorst"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v1"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/1 Rural route - Mill Creek",
+          "expression": "v1 * 0.01"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[4]",
+              "label": "rsPonPortEntry[4]"
+            },
+            "attribute": {
+              "name": "rsPonRxWorst"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v3"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/2 Rural route - Pine Valley",
+          "expression": "v3 * 0.01"
+        },
+        {
+          "refId": "E",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[5]",
+              "label": "rsPonPortEntry[5]"
+            },
+            "attribute": {
+              "name": "rsPonRxWorst"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v5"
+          }
+        },
+        {
+          "refId": "F",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/3 Rural route - Cedar Ridge",
+          "expression": "v5 * 0.01"
+        },
+        {
+          "refId": "G",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[6]",
+              "label": "rsPonPortEntry[6]"
+            },
+            "attribute": {
+              "name": "rsPonRxWorst"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v7"
+          }
+        },
+        {
+          "refId": "H",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/4 Rural route - Fox Hollow",
+          "expression": "v7 * 0.01"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix: dBm",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 0,
+            "showPoints": "never",
+            "spanNulls": true,
+            "thresholdsStyle": {
+              "mode": "line+area"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": -28
+              },
+              {
+                "color": "transparent",
+                "value": -27
+              }
+            ]
+          },
+          "min": -32,
+          "max": -15,
+          "decimals": 2
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "id": 12,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Downstream PON utilization",
+      "description": "Capacity planning threshold 70 %.",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[3]",
+              "label": "rsPonPortEntry[3]"
+            },
+            "attribute": {
+              "name": "rsPonDlUtil"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/1 Rural route - Mill Creek"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[4]",
+              "label": "rsPonPortEntry[4]"
+            },
+            "attribute": {
+              "name": "rsPonDlUtil"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/2 Rural route - Pine Valley"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[5]",
+              "label": "rsPonPortEntry[5]"
+            },
+            "attribute": {
+              "name": "rsPonDlUtil"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/3 Rural route - Cedar Ridge"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": false,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[6]",
+              "label": "rsPonPortEntry[6]"
+            },
+            "attribute": {
+              "name": "rsPonDlUtil"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "gpon-0/1/4 Rural route - Fox Hollow"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 0,
+            "showPoints": "never",
+            "spanNulls": true,
+            "thresholdsStyle": {
+              "mode": "line+area"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 70
+              }
+            ]
+          },
+          "min": 0,
+          "max": 100
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "id": 13,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 33
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Average ONU receive power per PON",
+      "description": "",
+      "datasource": {
+        "type": "opennms-performance-datasource",
+        "uid": "${ds_perf}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[3]",
+              "label": "rsPonPortEntry[3]"
+            },
+            "attribute": {
+              "name": "rsPonRxAvg"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v1"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/1 Rural route - Mill Creek",
+          "expression": "v1 * 0.01"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[4]",
+              "label": "rsPonPortEntry[4]"
+            },
+            "attribute": {
+              "name": "rsPonRxAvg"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v3"
+          }
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/2 Rural route - Pine Valley",
+          "expression": "v3 * 0.01"
+        },
+        {
+          "refId": "E",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[5]",
+              "label": "rsPonPortEntry[5]"
+            },
+            "attribute": {
+              "name": "rsPonRxAvg"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v5"
+          }
+        },
+        {
+          "refId": "F",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/3 Rural route - Cedar Ridge",
+          "expression": "v5 * 0.01"
+        },
+        {
+          "refId": "G",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "hide": true,
+          "performanceType": {
+            "label": "Attribute",
+            "value": 1
+          },
+          "attribute": {
+            "node": {
+              "id": "RAN-Sim:olt-rural-02",
+              "label": "olt-rural-02"
+            },
+            "resource": {
+              "id": "rsPonPortEntry[6]",
+              "label": "rsPonPortEntry[6]"
+            },
+            "attribute": {
+              "name": "rsPonRxAvg"
+            },
+            "aggregation": {
+              "label": "AVERAGE"
+            },
+            "label": "v7"
+          }
+        },
+        {
+          "refId": "H",
+          "datasource": {
+            "type": "opennms-performance-datasource",
+            "uid": "${ds_perf}"
+          },
+          "performanceType": {
+            "label": "Expression",
+            "value": 2
+          },
+          "label": "gpon-0/1/4 Rural route - Fox Hollow",
+          "expression": "v7 * 0.01"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix: dBm",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 0,
+            "showPoints": "never",
+            "spanNulls": true,
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              }
+            ]
+          },
+          "decimals": 2
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "id": 14,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 33
+      }
+    }
+  ],
+  "annotations": {
+    "list": []
+  }
+}
