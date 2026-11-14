@@ -34,7 +34,7 @@ on-premises, or that many operators can share as an isolated, multi-tenant cloud
 | Performance management | SNMP data collection for IF-MIB traffic, RAN KPIs and transport/access metrics, plus graphs with engineering thresholds (`opennms/overlay/etc/`, `opennms/etc-first-start/`) |
 | Fault management | Alarms for cell outage/restore (auto-clear) and node down (site power loss); standard IF-MIB link down/up traps for backhaul; optical loss of signal, LSP protection switch, BGP session down, broadcast storm, GPON fiber cut vs. area power outage (dying gasp) and ONU power degradation — all auto-clearing |
 | Security monitoring | Critical alarm for repeated failed OAM logins (brute-force pattern) on a RAN element |
-| Dashboards | Grafana with the OpenNMS Plugin for Grafana and pre-provisioned datasources (`grafana/`) |
+| Dashboards | Grafana with the OpenNMS Plugin for Grafana, pre-provisioned datasources and four dashboards generated as code — Network Overview, 4G/5G RAN, IP/MPLS + DWDM + Ethernet, FTTH/GPON (`grafana/`) |
 | Repeatable demos | `scripts/scenario.sh` triggers each fault/security scenario and logs every run |
 
 ## Architecture
@@ -83,7 +83,7 @@ docker compose up -d --build  # first start of OpenNMS takes 3-5 minutes
 | UI | URL | Login |
 |---|---|---|
 | OpenNMS Horizon | http://127.0.0.1:8980/opennms | `admin` / `admin` → **change it immediately**, then update `OPENNMS_API_PASSWORD` in `.env` |
-| Grafana | http://127.0.0.1:3000 | `admin` / `GRAFANA_ADMIN_PASSWORD` |
+| Grafana | http://127.0.0.1:3000 | `admin` / `GRAFANA_ADMIN_PASSWORD` — dashboards in the **RAN-Secure** folder |
 
 After ~15 minutes (three 5-minute collection cycles) open **Reports → Resource Graphs → gnb-site-101**
 to see the cell KPI graphs (PRB utilization, RRC success rate, throughput, drop rate...). The
@@ -98,7 +98,7 @@ power per PON on `olt-town-01` and `olt-rural-02`. The topology map (built from 
 git pull
 docker compose -f docker-compose.yml -f deploy/docker-compose.cloud.yml up -d --build   # new simulators
 ./scripts/provision.sh                 # events, data collection groups, policy, requisition
-docker compose restart horizon         # reloads graph definitions and the surveillance view
+docker compose restart horizon grafana # reloads graphs, surveillance view and Grafana dashboards
 ```
 
 `provision.sh` is safe to run again: it only creates or updates configuration. On an existing

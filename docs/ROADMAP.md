@@ -14,7 +14,7 @@ Status legend: ✅ done · 🔄 in progress · ⏳ planned
 | 1.5 | Fault scenarios: cell outage/restore, site power loss, backhaul flap | ✅ |
 | 1.6 | Security scenario: brute-force on OAM interface → critical alarm | ✅ |
 | 1.7 | First end-to-end run on a local Docker host, screenshots in `docs/screenshots/` | ⏳ |
-| 1.8 | Grafana dashboards "RAN Overview" and "RAN Cell KPIs" exported as code | ⏳ |
+| 1.8 | Grafana dashboards as code (`grafana/generate_dashboards.py`): Network Overview and 4G/5G RAN | ✅ |
 | 1.9 | Deployment on a public cloud VM behind a TLS reverse proxy (deploy kit ready: `deploy/`) | 🔄 |
 | 1.10 | Thresholds (PRB > 80 %, RRC SR < 99 %, drop rate > 0.5 %) generating alarms | ⏳ |
 | 1.11 | Project website / landing page with demo request form | ⏳ |
@@ -22,7 +22,7 @@ Status legend: ✅ done · 🔄 in progress · ⏳ planned
 | 1.13 | Simulated transport and access network: IP/MPLS core, Ethernet aggregation/access, DWDM optical layer, GPON OLTs (`RAN-SECURE-NET-SIM-MIB`) | ✅ |
 | 1.14 | End-to-end topology map from LLDP (radio site to Internet gateway) — verify on the cloud server | 🔄 |
 | 1.15 | Transport/access scenarios: DWDM fiber cut with MPLS protection, BGP transit loss, broadcast storm, FTTH power outage vs. PON fiber cut, ONU power degradation — verify alarms on the cloud server | 🔄 |
-| 1.16 | Grafana dashboards for transport and access ("Core & Optical", "FTTH Access") exported as code | ⏳ |
+| 1.16 | Grafana dashboards for transport and access ("IP/MPLS, DWDM and Ethernet", "FTTH / GPON Access") as code | ✅ |
 
 ## Phase 2 – Client outreach and pilot testing (months 6–12)
 
