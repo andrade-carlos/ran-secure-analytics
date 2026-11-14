@@ -145,8 +145,11 @@ def thresholds(steps):
 
 def timeseries(title, q, unit="short", desc="", steps=None, lo=None, hi=None, log=False,
                fill=10, decimals=None, stack=False):
+    # shade the bad zone when it is above the threshold (CPU, load, BER); when the bad zone is
+    # below (availability, optical power, OSNR) a dashed line reads better than a large red area
+    style = "off" if not steps else ("dashed" if steps[0][1] == RED else "line+area")
     custom = {"lineWidth": 2, "fillOpacity": fill, "showPoints": "never", "spanNulls": True,
-              "thresholdsStyle": {"mode": "line+area" if steps else "off"}}
+              "thresholdsStyle": {"mode": style}}
     if log:
         custom["scaleDistribution"] = {"type": "log", "log": 10}
     if stack:
@@ -198,8 +201,8 @@ def alarm_table(title, desc=""):
             "refId": "A", "datasource": ENTITY, "selectType": {"label": "Alarms"},
             "filter": {"limit": 100,
                        "clauses": [{"restriction": {"attribute": "severity", "comparator": {"label": "NE"},
-                                                    "value": "CLEARED"},
-                                    "operator": {"label": "AND"}}],
+                                                    "value": sev},
+                                    "operator": {"label": "AND"}} for sev in ("CLEARED", "NORMAL")],
                        "orderBy": [{"attribute": "lastEventTime", "order": {"label": "DESC"}}]},
         }],
         "fieldConfig": {"defaults": {}, "overrides": []},
@@ -293,10 +296,10 @@ def overview():
 
     q = Q()
     q.total("UEs", [(d["name"], "nodeSnmp[]", "ranNodeUEs") for d in gen.DEVICES if d["cells"]])
-    L.add(stat("Mobile users connected", q, decimals=0, desc="RRC-connected UEs on all 4G/5G sites."), 4, 5)
+    L.add(stat("Mobile users connected", q, unit="none", decimals=0, desc="RRC-connected UEs on all 4G/5G sites."), 4, 5)
 
     L.add(alarm_table("Active alarms - all domains",
-                      "Alarms that are not cleared, newest first. Acknowledge or clear from the row menu."), 24, 9)
+                      "Active problems (not cleared, not normal), newest first. Acknowledge or clear from the row menu."), 24, 9)
 
     q = Q()
     q.traffic("pe-core-02", "et-0/2/0", "Transit-A")
@@ -393,7 +396,7 @@ def core():
     q = Q()
     for node, port, label in CH_PORTS:
         q.scaled(node, f"rsOptPortEntry[{if_index(node, port)}]", "rsOptPreFecBer", label, 1e-9)
-    L.add(timeseries("Channel pre-FEC bit error ratio", q, unit="sci", fill=0, log=True,
+    L.add(timeseries("Channel pre-FEC bit error ratio", q, unit="sci", fill=0, log=True, decimals=1,
                      steps=[(None, "transparent"), (0.0038, RED)], desc="HD-FEC limit 3.8E-3."), 12, 8)
     q = Q()
     q.traffic("roadm-01", "CH-2", "WS-0042")
@@ -427,7 +430,8 @@ def ftth():
         q.total("Online", [(olt["name"], f"rsPonPortEntry[{i}]", "rsPonOnusOnline") for i, *_ in pon_ports(olt)])
         registered = sum(o for *_, o in pon_ports(olt))
         L.add(stat(f"{olt['name']}: ONUs online (of {registered})", q, decimals=0,
-                   steps=[(None, RED), (registered * 0.9, ORANGE), (registered * 0.97, GREEN)]), 6, 5)
+                   steps=[(None, RED), (registered * 0.75, ORANGE), (registered * 0.9, GREEN)],
+                   desc="Normally 1-2 ONUs per PON are off (subscriber equipment unplugged)."), 6, 5)
         q = Q()
         q.traffic(olt["name"], olt["uplink"][0], "Uplink")
         L.add(timeseries(f"{olt['name']} uplink traffic", q, unit="bps", fill=5), 6, 5)

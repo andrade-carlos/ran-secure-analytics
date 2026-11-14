@@ -694,7 +694,7 @@
             "showPoints": "never",
             "spanNulls": true,
             "thresholdsStyle": {
-              "mode": "line+area"
+              "mode": "dashed"
             }
           },
           "color": {
@@ -1410,7 +1410,7 @@
             "showPoints": "never",
             "spanNulls": true,
             "thresholdsStyle": {
-              "mode": "line+area"
+              "mode": "dashed"
             }
           },
           "color": {

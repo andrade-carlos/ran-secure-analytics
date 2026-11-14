@@ -1019,7 +1019,7 @@
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "short",
+          "unit": "none",
           "color": {
             "mode": "thresholds"
           },
@@ -1062,7 +1062,7 @@
     {
       "type": "opennms-alarm-table-panel",
       "title": "Active alarms - all domains",
-      "description": "Alarms that are not cleared, newest first. Acknowledge or clear from the row menu.",
+      "description": "Active problems (not cleared, not normal), newest first. Acknowledge or clear from the row menu.",
       "datasource": {
         "type": "opennms-entity-datasource",
         "uid": "${ds_entity}"
@@ -1087,6 +1087,18 @@
                     "label": "NE"
                   },
                   "value": "CLEARED"
+                },
+                "operator": {
+                  "label": "AND"
+                }
+              },
+              {
+                "restriction": {
+                  "attribute": "severity",
+                  "comparator": {
+                    "label": "NE"
+                  },
+                  "value": "NORMAL"
                 },
                 "operator": {
                   "label": "AND"

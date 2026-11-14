@@ -61,7 +61,7 @@
     {
       "type": "stat",
       "title": "olt-town-01: ONUs online (of 396)",
-      "description": "",
+      "description": "Normally 1-2 ONUs per PON are off (subscriber equipment unplugged).",
       "datasource": {
         "type": "opennms-performance-datasource",
         "uid": "${ds_perf}"
@@ -328,11 +328,11 @@
               },
               {
                 "color": "orange",
-                "value": 356.40000000000003
+                "value": 297.0
               },
               {
                 "color": "green",
-                "value": 384.12
+                "value": 356.40000000000003
               }
             ]
           },
@@ -510,7 +510,7 @@
     {
       "type": "stat",
       "title": "olt-rural-02: ONUs online (of 100)",
-      "description": "",
+      "description": "Normally 1-2 ONUs per PON are off (subscriber equipment unplugged).",
       "datasource": {
         "type": "opennms-performance-datasource",
         "uid": "${ds_perf}"
@@ -661,11 +661,11 @@
               },
               {
                 "color": "orange",
-                "value": 90.0
+                "value": 75.0
               },
               {
                 "color": "green",
-                "value": 97.0
+                "value": 90.0
               }
             ]
           },
@@ -1501,7 +1501,7 @@
             "showPoints": "never",
             "spanNulls": true,
             "thresholdsStyle": {
-              "mode": "line+area"
+              "mode": "dashed"
             }
           },
           "color": {
@@ -2625,7 +2625,7 @@
             "showPoints": "never",
             "spanNulls": true,
             "thresholdsStyle": {
-              "mode": "line+area"
+              "mode": "dashed"
             }
           },
           "color": {
